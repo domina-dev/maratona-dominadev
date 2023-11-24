@@ -1,5 +1,24 @@
-.container{
+.container {
+    margin-top: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+table{
+    width: 100%;
+}
+
+.mat-icon{
+    color: white !important;
+}
+
+.example-card {
+    width: 30rem;
+}
+
+.example-header-image {
+    background-image: url("https://dominadev.s3.sa-east-1.amazonaws.com/alunos/jonatas.png");
+    background-size: cover;
+    cursor: pointer;
 }
