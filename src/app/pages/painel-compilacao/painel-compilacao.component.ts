@@ -17,7 +17,7 @@ import { JonatasService } from 'src/app/services/jonatas/jonatas.service';
 import { TarefasJonatas } from 'src/app/services/jonatas/tarefas-jonatas';
 import { TarefasVictor } from 'src/app/services/victor/tarefas-victor';
 import { VictorService } from 'src/app/services/victor/victor.service';
-import { Alunos, AlunosList, single } from './data';
+import { Alunos, AlunosList, DadosAlunos } from './data';
 
 @Component({
   selector: 'app-painel-compilacao',
@@ -26,7 +26,7 @@ import { Alunos, AlunosList, single } from './data';
 })
 export class PainelCompilacaoComponent implements OnInit {
 
-  single = single;
+  dadosAlunos = DadosAlunos;
   name = 'Angular';
 
   fitContainer: boolean = false;
@@ -38,7 +38,7 @@ export class PainelCompilacaoComponent implements OnInit {
   gradient = true;
   showLegend = false;
   showXAxisLabel = true;
-  xAxisLabel = 'Dev';
+  xAxisLabel = 'Devs';
   showYAxisLabel = true;
   yAxisLabel = 'Compilações';
   timeline = true;
@@ -55,6 +55,14 @@ export class PainelCompilacaoComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   usuarioAtual = Alunos.BRUNO;
+
+  exercicios: Compilacao[] = [];
+  tarefasBruno = TarefasBruno;
+  tarefasGeanderson = TarefasGeanderson;
+  tarefasGuilherme = TarefasGuilherme;
+  tarefasJoao = TarefasJoao;
+  tarefasJonatas = TarefasJonatas;
+  tarefasVictor = TarefasVictor;
 
   alunos = AlunosList;
 
@@ -73,73 +81,43 @@ export class PainelCompilacaoComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  listaExercicios(){
+  listaExercicios() {
+    this.obterFuncoesPorAluno();
     switch (this.usuarioAtual) {
-      case Alunos.BRUNO:
-        this.dataSource = new MatTableDataSource<Exercicio>(TarefasBruno);
-        break;
-
-      case Alunos.GEANDERSON:
-        this.dataSource = new MatTableDataSource<Exercicio>(TarefasGeanderson);
-        break;
-
-      case Alunos.GUILHERME:
-        this.dataSource = new MatTableDataSource<Exercicio>(TarefasGuilherme);
-        break;
-
-      case Alunos.JOAO:
-        this.dataSource = new MatTableDataSource<Exercicio>(TarefasJoao);
-        break;
-
-      case Alunos.JONATAS:
-        this.dataSource = new MatTableDataSource<Exercicio>(TarefasJonatas);
-        break;
-
-      case Alunos.VICTOR:
-        this.dataSource = new MatTableDataSource<Exercicio>(TarefasVictor);
-        break;
-
-      default:
-        this.falhaExecucao();
-        break;
+      case Alunos.BRUNO: this.exercicios = TarefasBruno; break;
+      case Alunos.GEANDERSON: this.exercicios = TarefasGeanderson; break;
+      case Alunos.GUILHERME: this.exercicios = TarefasGuilherme; break;
+      case Alunos.JOAO: this.exercicios = TarefasJoao; break;
+      case Alunos.JONATAS: this.exercicios = TarefasJonatas; break;
+      case Alunos.VICTOR: this.exercicios = TarefasVictor; break;
+      default: this.falhaExecucao(); break;
     }
+
+    this.dataSource = new MatTableDataSource<Exercicio>(this.exercicios);
   }
 
   execucaoDinamica(nomeFuncao: string) {
-   try {
-    switch (this.usuarioAtual) {
-      case Alunos.BRUNO:
-        this.brunoService[nomeFuncao as keyof BrunoService]()
-        break;
-
-      case Alunos.GEANDERSON:
-        this.geandersonService[nomeFuncao as keyof GeandersonService]()
-        break;
-
-      case Alunos.GUILHERME:
-        this.guilhermeService[nomeFuncao as keyof GuilhermeService]()
-        break;
-
-      case Alunos.JOAO:
-        this.joaoService[nomeFuncao as keyof JoaoService]()
-        break;
-
-      case Alunos.JONATAS:
-        this.jonatasService[nomeFuncao as keyof JonatasService]()
-        break;
-
-      case Alunos.VICTOR:
-        this.victorService[nomeFuncao as keyof VictorService]()
-        break;
-
-      default:
-        this.falhaExecucao();
-        break;
+    try {
+      switch (this.usuarioAtual) {
+        case Alunos.BRUNO: this.brunoService[nomeFuncao as keyof BrunoService](); break;
+        case Alunos.GEANDERSON: this.geandersonService[nomeFuncao as keyof GeandersonService](); break;
+        case Alunos.GUILHERME: this.guilhermeService[nomeFuncao as keyof GuilhermeService](); break;
+        case Alunos.JOAO: this.joaoService[nomeFuncao as keyof JoaoService](); break;
+        case Alunos.JONATAS: this.jonatasService[nomeFuncao as keyof JonatasService](); break;
+        case Alunos.VICTOR: this.victorService[nomeFuncao as keyof VictorService](); break;
+        default: this.falhaExecucao(); break;
+      }
+    } catch (error) {
+      this.falhaExecucao();
     }
-   } catch (error) {
-     this.falhaExecucao();
-   }
 
+  }
+
+  obterFuncoesPorAluno(){
+    DadosAlunos.forEach(aluno => {
+      aluno.value = this['tarefas'+ aluno.name as keyof PainelCompilacaoComponent]?.length || 0;
+    });
+    this.dadosAlunos = DadosAlunos;
   }
 
   falhaExecucao() {

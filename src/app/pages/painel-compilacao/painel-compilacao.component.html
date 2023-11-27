@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <mat-card class="example-card">
                 <mat-card-content>
-                    <ngx-charts-bar-vertical [view]="view" [results]="single" [gradient]="gradient" [xAxis]="showXAxis"
+                    <ngx-charts-bar-vertical [view]="view" [results]="dadosAlunos" [gradient]="gradient" [xAxis]="showXAxis"
                         [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
                         [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
                     </ngx-charts-bar-vertical>
@@ -29,6 +29,11 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
+                        </div>
+                        <div class="col" style="display: flex; align-items: center; justify-content: center;">
+                            <button mat-raised-button color="primary" >
+                                <mat-icon color="primary">add</mat-icon>
+                            </button>
                         </div>
                     </div>
 

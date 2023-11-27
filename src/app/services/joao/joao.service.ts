@@ -10,4 +10,8 @@ export class JoaoService {
   teste(){
     alert("Teste Joao Executado com sucesso!")
   }
+
+  ordenarClientes(){
+    alert("Clientes ordenados em ordem alfabética")
+  }
 }

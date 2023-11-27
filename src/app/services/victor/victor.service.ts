@@ -10,4 +10,8 @@ export class VictorService {
   teste(){
     alert("Teste Victor Executado com sucesso!")
   }
+
+  filtrarClientes(){
+    console.log("clientes Filtrados");
+  }
 }

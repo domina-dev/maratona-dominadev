@@ -11,4 +11,8 @@ export class BrunoService {
   teste(){
     alert("Teste Bruno Executado com sucesso!")
   }
+
+  ordenarTabela(){
+    alert("deu bom esse carai agora")
+  }
 }

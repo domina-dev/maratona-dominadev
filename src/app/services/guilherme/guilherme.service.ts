@@ -10,4 +10,8 @@ export class GuilhermeService {
   teste(){
     alert("Teste Guilherme Executado com sucesso!")
   }
+
+  teste2(){
+    
+  }
 }
