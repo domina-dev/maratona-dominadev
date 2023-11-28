@@ -19,6 +19,7 @@ export class VictorService {
     for (let i = 0; i < numeros.length; i++) {
       soma += numeros[i];
     }
+
     let media: number = soma / numeros.length;
     console.log(media)
   }
