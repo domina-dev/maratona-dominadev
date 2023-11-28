@@ -5,13 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class JoaoService {
 
-  constructor() { }
+  constructor() {
+   }
 
-  teste(){
-    alert("Teste Joao Executado com sucesso!")
+  private cliente : string = 'Adolfo';
+  private media : number = (1 + 5 + 10) / 3;
+
+  nomearCliente(){
+    console.log("O nome do cliente é:", this.cliente)
   }
 
-  ordenarClientes(){
-    alert("Clientes ordenados em ordem alfabética")
+  mediaNumeros(){
+    console.log('A média entre esses três números é:', this.media)
   }
 }
