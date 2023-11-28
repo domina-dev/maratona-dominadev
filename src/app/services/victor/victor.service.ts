@@ -7,11 +7,19 @@ export class VictorService {
 
   constructor() { }
 
-  teste(){
-    alert("Teste Victor Executado com sucesso!")
+  private nome: string = "Victor dos Santos"
+
+  nomeInformado() {
+    console.log(this.nome)
   }
 
-  filtrarClientes(){
-    console.log("clientes Filtrados");
+  calcularMedia(){
+    let numeros: number[] = [4, 2, 3, 8];
+    let soma: number = 0;
+    for (let i = 0; i < numeros.length; i++) {
+      soma += numeros[i];
+    }
+    let media: number = soma / numeros.length;
+    console.log(media)
   }
 }
