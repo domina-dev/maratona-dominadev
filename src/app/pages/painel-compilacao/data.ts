@@ -8,13 +8,17 @@ export enum Alunos {
 }
 
 export enum Status {
-  ANDAMENTO = "Em Andamento",
-  OK = "OK"
+  EM_ANDAMENTO = "Em andamento",
+  AGUARDANDO_CORRECAO = "Aguardando correção",
+  CORRIGIDA = "Corrigida",
+  AGUARDANDO_PONTUACAO = "Aguardando pontuação",
+  CONCLUIDA = "Concluída",
+  ARQUIVADA = "Arquivada"
 }
 
 export const AlunosList = [
   { nome: Alunos.BRUNO, nomeLista: '' },
-  { nome: Alunos.GEANDERSON },
+  // { nome: Alunos.GEANDERSON },
   { nome: Alunos.GUILHERME },
   { nome: Alunos.JOAO },
   { nome: Alunos.JONATAS },
@@ -26,10 +30,10 @@ export const DadosAlunos = [
     "name": Alunos.BRUNO,
     "value": 1
   },
-  {
-    "name": Alunos.GEANDERSON,
-    "value": 1
-  },
+  // {
+  //   "name": Alunos.GEANDERSON,
+  //   "value": 1
+  // },
   {
     "name": Alunos.GUILHERME,
     "value": 1

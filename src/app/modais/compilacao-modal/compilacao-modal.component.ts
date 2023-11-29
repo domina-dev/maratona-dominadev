@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Compilacao } from 'src/app/model/compilacao';
-import { Alunos, AlunosList } from 'src/app/pages/painel-compilacao/data';
+import { Alunos, AlunosList, Status } from 'src/app/pages/painel-compilacao/data';
 import { CommomService } from 'src/app/services/commom.service';
 
 @Component({
@@ -21,14 +21,12 @@ export class CompilacaoModalComponent implements OnInit {
 	form = this.fb.group({
 		funcao: [''],
 		autor: [''],
-		status: ['OK'],
+		status: [Status.EM_ANDAMENTO],
 		parametros: this.fb.array([])
 	})
-	// parametrosForm!: FormArray;
 
 	get parametros() {
 		return this.form.get('parametros') as FormArray;
-		// return this.form.controls["parametros"] as FormArray;
 	}
 
 	constructor(private fb: FormBuilder, private commomService: CommomService,

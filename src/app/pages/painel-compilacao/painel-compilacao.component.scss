@@ -33,3 +33,13 @@ table{
     color: red !important;
     cursor: pointer;
 }
+
+.status{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .icon{
+        color: #8471e2 !important;
+        margin-right: 3px;
+    }
+}

@@ -4,6 +4,7 @@ export class Compilacao {
     status?: string;
     funcao!: string;
     parametros!: Parametro[];
+    icone?: string;
 }
 
 export class Parametro {

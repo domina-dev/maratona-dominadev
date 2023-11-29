@@ -4,11 +4,14 @@ html,
 body {
     height: 100%;
 }
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color: #ede9e0;
-    background-image: linear-gradient(#ede9e0, #8471e2);
+:root {
+    body {
+        margin: 0;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        
+        
+        background-color: #ede9e0;
+        background-image: linear-gradient(#ede9e0, #8471e2);
+    }
     
-
 }

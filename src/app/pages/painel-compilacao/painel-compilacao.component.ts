@@ -9,19 +9,13 @@ import { ConfirmacaoComponent } from 'src/app/modais/confirmacao/confirmacao.com
 import { Compilacao } from 'src/app/model/compilacao';
 import { Exercicio } from 'src/app/model/exercicio';
 import { BrunoService } from 'src/app/services/bruno/bruno.service';
-import { TarefasBruno } from 'src/app/services/bruno/tarefas-bruno';
 import { CommomService } from 'src/app/services/commom.service';
 import { GeandersonService } from 'src/app/services/geanderson/geanderson.service';
-import { TarefasGeanderson } from 'src/app/services/geanderson/tarefas-geanderson';
 import { GuilhermeService } from 'src/app/services/guilherme/guilherme.service';
-import { TarefasGuilherme } from 'src/app/services/guilherme/tarefas-guilherme';
 import { JoaoService } from 'src/app/services/joao/joao.service';
-import { TarefasJoao } from 'src/app/services/joao/tarefas-joao';
 import { JonatasService } from 'src/app/services/jonatas/jonatas.service';
-import { TarefasJonatas } from 'src/app/services/jonatas/tarefas-jonatas';
-import { TarefasVictor } from 'src/app/services/victor/tarefas-victor';
 import { VictorService } from 'src/app/services/victor/victor.service';
-import { Alunos, AlunosList, DadosAlunos } from './data';
+import { Alunos, AlunosList, DadosAlunos, Status } from './data';
 
 @Component({
 	selector: 'app-painel-compilacao',
@@ -31,7 +25,6 @@ import { Alunos, AlunosList, DadosAlunos } from './data';
 export class PainelCompilacaoComponent implements OnInit {
 
 	dadosAlunos: any = [];
-	name = 'Angular';
 
 	fitContainer: boolean = false;
 
@@ -65,6 +58,7 @@ export class PainelCompilacaoComponent implements OnInit {
 	tarefasAluno: Compilacao[] = [];
 
 	alunos = AlunosList;
+	status = Status;
 
 	constructor(private commomService: CommomService, private brunoService: BrunoService,
 		private geandersonService: GeandersonService, private guilhermeService: GuilhermeService,
@@ -100,7 +94,7 @@ export class PainelCompilacaoComponent implements OnInit {
 
 			this.dataSource = new MatTableDataSource<Exercicio>(this.exercicios);
 			this.dataSource.paginator = this.paginator;
-			
+
 			this.tarefasAluno = this.exercicios;
 		}, error => {
 			console.log(error);
@@ -108,16 +102,44 @@ export class PainelCompilacaoComponent implements OnInit {
 
 	}
 
-	atualizaGrafico(response: any){
+	atualizaGrafico(response: any) {
 		DadosAlunos.forEach(aluno => {
 			aluno.value = response?.filter((r: any) => r.autor === aluno.name)?.length || 0;
 		});
-		
+
 		this.dadosAlunos = DadosAlunos;
 	}
 
-	contadorFuncoesPorAluno(){
+	defineStatusCompilacao(compilacao: Compilacao) {
+		switch (compilacao.status) {
+			case Status.EM_ANDAMENTO:
+				compilacao.icone = "access_time"
+				return Status.EM_ANDAMENTO
 
+			case Status.AGUARDANDO_CORRECAO:
+				compilacao.icone = "pending"
+				return Status.AGUARDANDO_CORRECAO
+
+			case Status.CORRIGIDA:
+				compilacao.icone = "done"
+				return Status.CORRIGIDA
+
+			case Status.AGUARDANDO_PONTUACAO:
+				compilacao.icone = "pending_actions"
+				return Status.AGUARDANDO_PONTUACAO
+
+			case Status.CONCLUIDA:
+				compilacao.icone = "done_all"
+				return Status.CONCLUIDA
+
+			case Status.ARQUIVADA:
+				compilacao.icone = "folder"
+				return Status.ARQUIVADA
+
+			default:
+				compilacao.icone = "access_time"
+				return Status.EM_ANDAMENTO
+		}
 	}
 
 	falhaExecucao() {
@@ -137,23 +159,23 @@ export class PainelCompilacaoComponent implements OnInit {
 		const dialogRef = this.dialog.open(ConfirmacaoComponent);
 
 		dialogRef.afterClosed().subscribe(result => {
-			if(result){
+			if (result) {
 				this.deletarCompilacao(compilacao);
 			}
 		});
 	}
 
-	deletarCompilacao(compilacao: Compilacao){
-		this.commomService.deletar(compilacao?.id).subscribe(()=>{
+	deletarCompilacao(compilacao: Compilacao) {
+		this.commomService.deletar(compilacao?.id).subscribe(() => {
 			this.snackbar.open(
 				"Compilação deletada com sucesso!",
 				"Fechar",
 				{
-				  duration: 3000
+					duration: 3000
 				}
-			  )
-			  this.obterFuncoesPorAluno();
-		}, error=>{
+			)
+			this.obterFuncoesPorAluno();
+		}, error => {
 			console.log(error);
 		})
 	}
@@ -174,10 +196,10 @@ export class PainelCompilacaoComponent implements OnInit {
 	executarComParametros(compilacao: Compilacao) {
 		try {
 			compilacao?.parametros?.forEach(param => {
-				if(param.tipo === "number") {
+				if (param.tipo === "number") {
 					param.valor = +param.valor
 				}
-				else if(param.tipo !== "string"){
+				else if (param.tipo !== "string") {
 					param.valor = JSON.parse(param.valor);
 				}
 			});

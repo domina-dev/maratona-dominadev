@@ -14,7 +14,6 @@ export class GuilhermeService extends BaseService{
   mostraNome() {
     let nome = prompt('Qual seu nome?')
     console.log(nome);
-
   }
 
   calculaMedia() {
