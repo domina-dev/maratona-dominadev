@@ -23,6 +23,12 @@ table{
     cursor: pointer;
 }
 
+.btn-add{
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 08px;
+}
 
 .cor-button{
     background-color:#8471e2;

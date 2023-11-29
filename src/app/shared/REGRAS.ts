@@ -11,7 +11,17 @@ Regras
 	
 	5 - Todos os métodos auxiliares que você criar(Métodos que não serão chamados pela 	tela) devem receber o prefixo private;
 	
-	6 - Todos os métodos que possuem parâmetro devem acompanhar um ToDo(Comentário de marcação) acima de sua declaração. Ex: 
+	6 - NUNCA commitar mudanças nos arquivos/pastas: 
+			ARQUIVOS: 
+				- angular.json 
+				- package-lock.json
+				- package.json
+				- commom.service.ts
+			PASTAS: 
+				- painel-compilacao
+				- modais
+
+	7 - Todos os métodos que possuem parâmetro devem acompanhar um ToDo(Comentário de marcação) acima de sua declaração. Ex: 
           
 		  /*
 		   * 
