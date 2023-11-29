@@ -24,27 +24,27 @@ export const AlunosList = [
 export const DadosAlunos = [
   {
     "name": Alunos.BRUNO,
-    "value": 0
+    "value": 1
   },
   {
     "name": Alunos.GEANDERSON,
-    "value": 0
+    "value": 1
   },
   {
     "name": Alunos.GUILHERME,
-    "value": 0
+    "value": 1
   },
   {
     "name": Alunos.JOAO,
-    "value": 0
+    "value": 1
   },
   {
     "name": Alunos.JONATAS,
-    "value": 0
+    "value": 1
   },
   {
     "name": Alunos.VICTOR,
-    "value": 0
+    "value": 1
   }
 ];
 

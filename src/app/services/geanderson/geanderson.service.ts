@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GeandersonService {
+export class GeandersonService extends BaseService{
 
-  constructor() { }
-
-  teste(){
-    alert("Teste Geanderson Executado com sucesso!")
+  constructor() { 
+    super();
   }
 }

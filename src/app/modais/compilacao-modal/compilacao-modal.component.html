@@ -1,0 +1,82 @@
+<div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+    <h2 class="title m-0">Adicionar Compilação</h2>
+</div>
+<mat-dialog-content fxLayout="row" fxLayoutAlign="center" [formGroup]="form">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field fxFlex="grow" appearance="outline">
+                <mat-label>Nome Função</mat-label>
+                <input formControlName="funcao" matInput placeholder="Ex. nomeFuncao" #input>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field fxFlex="grow" appearance="outline">
+                <mat-label>Quem está codando?</mat-label>
+                <mat-select [(ngModel)]="usuarioAtual" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let aluno of alunos" [value]="aluno.nome">
+                        {{aluno.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- Parametros -->
+    <div class="card mt-2r">
+        <div class="card-header ">
+            <div class="header-container">
+                <span class="product-header">
+                    Adicionar Parâmetro da função
+                </span>
+                <mat-icon mat-icon-button [matMenuTriggerFor]="menu" style="cursor: pointer;" color="primary">add_box
+                </mat-icon>
+            </div>
+
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12" formArrayName="parametros">
+
+                    <ul class="list-group" *ngFor="let parametro of parametros.controls; let i=index">
+                        <li class="list-group-item">
+                            <div class="row" [formGroupName]="i">
+                                <div class="col-md-5">
+                                    <mat-form-field fxFlex="grow" appearance="outline">
+                                        <mat-label>Chave</mat-label>
+                                        <input formControlName="chave" matInput placeholder="Ex. nomeFuncao" #input>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-5">
+                                    <mat-form-field fxFlex="grow" appearance="outline">
+                                        <mat-label>Valor</mat-label>
+                                        <input formControlName="valor" matInput placeholder="Ex. nomeFuncao" #input>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2"
+                                    style="display: flex; justify-content: center; align-items: center;">
+                                    <mat-icon style="cursor: pointer; " (click)="removerParametro(i)" color="warn">
+                                        delete</mat-icon>
+                                </div>
+                                <span >{{parametro?.value.tipo}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button (click)="adicionarCompilacao()" mat-button mat-raised-button color="primary">
+        Confirmar
+    </button>
+</mat-dialog-actions>
+
+<mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+    <button mat-menu-item (click)="adicionarParametro('string')">string</button>
+    <button mat-menu-item (click)="adicionarParametro('boolean')">boolean</button>
+    <button mat-menu-item (click)="adicionarParametro('number')">number</button>
+</mat-menu>

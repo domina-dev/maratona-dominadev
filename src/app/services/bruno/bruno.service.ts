@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Compilacao } from 'src/app/model/compilacao';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BrunoService {
-  
-  constructor() { }
+export class BrunoService extends BaseService{
 
-  teste(){
-    alert("Teste Bruno Executado com sucesso!")
+  constructor() { 
+    super();
   }
 
-  ordenarTabela(){
-    alert("deu bom esse carai agora")
-  }
+  /**
+   * 
+   * @param nome string
+   */
+   exibirNomeInformado(nome?: any) {
+    console.log(nome);
+  };
 }

@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JoaoService {
+export class JoaoService extends BaseService{
 
-  constructor() { }
-
-  teste(){
-    alert("Teste Joao Executado com sucesso!")
-  }
-
-  ordenarClientes(){
-    alert("Clientes ordenados em ordem alfabética")
+  constructor() { 
+    super();
   }
 }

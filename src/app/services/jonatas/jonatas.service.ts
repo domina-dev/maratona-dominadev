@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JonatasService {
+export class JonatasService extends BaseService{
 
-  constructor() { }
-
-  teste(){
-    alert("Teste Jonatas Executado com sucesso!")
+  constructor() { 
+    super();
   }
 }
