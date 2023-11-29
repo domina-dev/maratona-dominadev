@@ -18,7 +18,7 @@ export enum Status {
 
 export const AlunosList = [
   { nome: Alunos.BRUNO, nomeLista: '' },
-  // { nome: Alunos.GEANDERSON },
+  { nome: Alunos.GEANDERSON },
   { nome: Alunos.GUILHERME },
   { nome: Alunos.JOAO },
   { nome: Alunos.JONATAS },
@@ -30,10 +30,10 @@ export const DadosAlunos = [
     "name": Alunos.BRUNO,
     "value": 1
   },
-  // {
-  //   "name": Alunos.GEANDERSON,
-  //   "value": 1
-  // },
+  {
+    "name": Alunos.GEANDERSON,
+    "value": 1
+  },
   {
     "name": Alunos.GUILHERME,
     "value": 1
