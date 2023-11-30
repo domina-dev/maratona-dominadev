@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JoaoService {
+export class JoaoService extends BaseService {
 
-  constructor() { }
-
-  teste(){
-    alert("Teste Joao Executado com sucesso!")
+  constructor() {
+    super();
   }
 
-  ordenarClientes(){
-    alert("Clientes ordenados em ordem alfabética")
+  private cliente: string = 'Adolfo';
+  private media: number = (1 + 5 + 10) / 3;
+
+  nomearCliente() {
+    console.log("O nome do cliente é:", this.cliente)
+  }
+
+  mediaNumeros() {
+    console.log('A média entre esses três números é:', this.media)
   }
 }

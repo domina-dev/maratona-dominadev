@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Compilacao } from 'src/app/model/compilacao';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BrunoService {
-  
-  constructor() { }
+export class BrunoService extends BaseService {
 
-  teste(){
-    alert("Teste Bruno Executado com sucesso!")
+  constructor() {
+    super();
   }
 
-  ordenarTabela(){
-    alert("deu bom esse carai agora")
+  private cliente: string = 'Théo';
+  private media: number = (1 + 5 + 10) / 3;
+
+  nomearCliente() {
+    console.log("O nome do cliente é:", this.cliente)
+  }
+
+  mediaNumeros() {
+    console.log('A média entre esses três números é:', this.media)
   }
 }

@@ -22,3 +22,30 @@ table{
     background-size: cover;
     cursor: pointer;
 }
+
+.btn-add{
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 08px;
+}
+
+.cor-button{
+    background-color:#8471e2;
+    color: white;
+} 
+
+.red-icon {
+    color: red !important;
+    cursor: pointer;
+}
+
+.status{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .icon{
+        color: #8471e2 !important;
+        margin-right: 3px;
+    }
+}

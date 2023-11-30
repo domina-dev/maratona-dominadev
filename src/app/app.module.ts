@@ -11,6 +11,10 @@ import { JoaoModule } from './pages/treino/joao/joao.module';
 import { GuilhermeModule } from './pages/treino/guilherme/guilherme.module';
 import { GeandersonModule } from './pages/treino/geanderson/geanderson.module';
 import { BrunoModule } from './pages/treino/bruno/bruno.module';
+import { ToolbarModule } from './layout/toolbar/toolbar.module';
+import { CompilacaoModalModule } from './modais/compilacao-modal/compilacao-modal.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfirmacaoModule } from './modais/confirmacao/confirmacao.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { BrunoModule } from './pages/treino/bruno/bruno.module';
     JoaoModule,
     GuilhermeModule,
     GeandersonModule,
-    BrunoModule
+    BrunoModule,
+    ToolbarModule,
+    CompilacaoModalModule,
+    ConfirmacaoModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

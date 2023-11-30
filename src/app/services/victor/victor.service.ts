@@ -1,17 +1,37 @@
 import { Injectable } from '@angular/core';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VictorService {
+export class VictorService extends BaseService {
 
-  constructor() { }
+  //-------------------VARIAVEIS MARATONA SEMANA 1---------------------
 
-  teste(){
-    alert("Teste Victor Executado com sucesso!")
+
+  constructor() {
+    super();
   }
 
-  filtrarClientes(){
-    console.log("clientes Filtrados");
-  }
+  //--------------------FUNÇÕES MARATONA SEMANA 1----------------------
+
+  /**
+   * 
+   * @param nome string
+   */
+  exibirNomeInformado(nome?: any) {
+    console.log(nome);
+  };
+
+  /**
+   * 
+   * @param numero1 number
+   * @param numero2 number
+   * @param numero3 number
+   */
+  calcularMedia(numero1?: any, numero2?: any, numero3?: any) {
+    let soma: number = numero1 + numero2 + numero3;
+    let media: number = soma / 3;
+    console.log(media)
+  };
 }
