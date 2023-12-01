@@ -20,4 +20,16 @@ export class BrunoService extends BaseService {
   mediaNumeros() {
     console.log('A média entre esses três números é:', this.media)
   }
-}
+
+  mostrarMenoridade(anoNascimento?: any){
+    let anoAtual: number = 2023;
+    let idade: number;
+      if(anoNascimento){
+        idade = anoAtual - anoNascimento;
+        if(idade <18){
+          alert("Usuário menor de idade")
+        }
+        }
+      }
+  }
+
