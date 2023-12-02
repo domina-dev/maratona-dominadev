@@ -8,7 +8,7 @@ if, else, operadores lógicos, else if, swith case
                 (Para este exerício, contemple dia, mês e ano), e junto com o retorno anterior, acrescente quantos dias faltam para o próximo aniversário
 ===========================================================================================================================================================
 	3 - Faça um método que receba como Parâmetro a data de nascimento de uma pessoa,
-        Retorne o momento eleitorial da pessoa, ou seja: 
+        Retorne o momento eleitorial da pessoa, ou seja:
         (15 anos ou menos não vota)
         (16 e 17 anos voto opcional)
         (Entre 18 e 70 é obrigatório)
