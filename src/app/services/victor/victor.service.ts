@@ -152,15 +152,15 @@ export class VictorService extends BaseService {
   }
 
 
-  //-----------------EXERCIO 5 DIA 2-----------------   , moeda?: any
+  //-----------------EXERCIO 5 DIA 2-----------------
   /**
    *
    * @param valor number
    * @param moeda string
    */
-  valorRecebido(valor?: any) {
+  valorRecebido(valor?: any, moeda?: any) {
     let conversaoMoeda: number = 1;
-    let moeda: string = 'Dolar'
+
     switch (moeda.toLowerCase()) {
       case 'dolar':
         conversaoMoeda = valor * 4.93;
