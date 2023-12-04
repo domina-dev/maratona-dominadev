@@ -98,7 +98,12 @@ export class VictorService extends BaseService {
     return diaAno;
   }
 
+
   //-----------------EXERCIO 3 DIA 2-----------------
+  /**
+   *
+   * @param idade number
+   */
   pessoaEleitoral(idade?: any) {
     if (idade <= 15) {
       alert("Essa pessoa NÃO VOTA, pois tem "+ idade +" anos")
@@ -109,5 +114,35 @@ export class VictorService extends BaseService {
     }
   }
 
+
+  /**
+   *
+   * @param valor number
+   * @param moeda string
+   */
   //-----------------EXERCIO 4 DIA 2-----------------
+  valorPagamento(valor?: any, moeda?: any) {
+
+    let conversao: number = 1 ;
+
+    if (moeda == 'dolar') {
+      conversao = valor * 4.93
+      console.log(`Voce recebeu ${valor} Dólar/USD de pagamento, que equivale a ${conversao} Reais/BRL`)
+    }
+    else if (moeda == 'libras') {
+      conversao = valor * 6.24
+      console.log(`Voce recebeu ${valor} Libra/GBP de pagamento, que equivale a ${conversao} Reais/BRL`)
+    }
+    else if(moeda == 'euro') {
+      conversao = valor * 5.36
+      console.log(`Voce recebeu ${valor} Euro/EUR de pagamento, que equivale a ${conversao} Reais/BRL`)
+    }
+    else if(moeda == 'iene') {
+      conversao = valor * 0.034
+      console.log(`Voce recebeu ${valor} Iene/JPY de pagamento, que equivale a ${conversao} Reais/BRL`)
+    }
+    else if(moeda == 'real'){
+      console.log(`Voce recebeu ${valor} Real/BRL de pagamento `)
+    }
+  }
 }
