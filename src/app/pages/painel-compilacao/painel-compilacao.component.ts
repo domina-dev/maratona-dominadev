@@ -221,6 +221,19 @@ export class PainelCompilacaoComponent implements OnInit {
 		}
 	}
 
+	testeLikert(){
+		// let now = new Date();
+		let mes
+		window.localStorage.setItem("dtLikertWithBtnSheet", new Date().getFullYear() + "-" + "01" + "-" + "17");
+		window.localStorage.setItem("dtLikertWithIds", new Date().getFullYear() + "-" + "01" + "-" + "18");
+		let showLikert = this.victorService.descansoLikert("dtLikertWithBtnSheet");
+		if(showLikert){
+			console.log("Mostra");
+		}else {
+			console.log("Espera completar 21 dias");			
+		}
+		
+	}
 	executarSemParametros(compilacao: Compilacao) {
 		try {
 			switch (this.usuarioAtual) {

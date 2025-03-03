@@ -42,14 +42,14 @@ export class VictorService extends BaseService {
    * @param anoNasc number
    */
   calculaAniversario(diaNasc?: any, mesNasc?: any, anoNasc?: any) {
-    let date = new Date(anoNasc, mesNasc-1, diaNasc)
+    let date = new Date(anoNasc, mesNasc - 1, diaNasc)
     let diaDoAnoNasc = this.diaDoAno(date);
     let diaDeHoje = this.diaDoAno(new Date());
 
     let restante = diaDeHoje - diaDoAnoNasc;
-    if(restante < 0){
-      alert("Faltam " + (Math.abs(restante)-1) + " dias para o aniversário");
-    }else{
+    if (restante < 0) {
+      alert("Faltam " + (Math.abs(restante) - 1) + " dias para o aniversário");
+    } else {
       let dias = Math.abs(restante - 365);
       alert(`o aniversário foi há ${Math.abs(restante) + 1} dias
         \nFaltam ${dias} dias para o próximo aniversário`);
@@ -65,4 +65,30 @@ export class VictorService extends BaseService {
     console.log('Day of year: ' + diaDoAno);
     return diaDoAno;
   }
+
+  descansoLikert(typeLikert?: any) {
+    
+    const DIAS_DESCANSO_MILISSEGUNDOS = 1814400000;
+    let now = new Date();
+    let dtSetLikert = window.localStorage.getItem(typeLikert);
+
+
+    if (dtSetLikert) {
+      let dtSetLikertCompare = new Date(dtSetLikert);
+      let diff = now.getTime() - dtSetLikertCompare.getTime();
+      return diff <= DIAS_DESCANSO_MILISSEGUNDOS ? false : true
+    } else {
+      return true;
+    }
+
+  }
+
+//   formatDate(date?: any): string {
+//     const day = date.getDate().toString()
+//       .padStart(2, '0');
+//     const month = (date.getMonth() + 1).toString()
+//       .padStart(2, '0');
+//     const year = date.getFullYear();
+//     return `${year}-${month}-${day}`;
+// }
 }
