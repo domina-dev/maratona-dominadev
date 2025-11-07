@@ -1,9 +1,9 @@
 export enum Alunos {
-  BRUNO = 'Bruno',
-  GEANDERSON = 'Geanderson',
-  GUILHERME = 'Guilherme',
-  JOAO = 'Joao',
-  JONATAS = 'Jonatas',
+  DYLAN = 'Dylan',
+  ERICK = 'Erick',
+  GAUCHO = 'Gaucho',
+  MATHEUS = 'Matheus',
+  PABLO = 'Pablo',
   VICTOR = 'Victor',
 }
 
@@ -17,33 +17,33 @@ export enum Status {
 }
 
 export const AlunosList = [
-  { nome: Alunos.BRUNO, nomeLista: '' },
-  { nome: Alunos.GEANDERSON },
-  { nome: Alunos.GUILHERME },
-  { nome: Alunos.JOAO },
-  { nome: Alunos.JONATAS },
+  { nome: Alunos.DYLAN },
+  { nome: Alunos.ERICK, nomeLista: '' },
+  { nome: Alunos.GAUCHO },
+  { nome: Alunos.MATHEUS },
+  { nome: Alunos.PABLO },
   { nome: Alunos.VICTOR },
 ]
 
 export const DadosAlunos = [
   {
-    "name": Alunos.BRUNO,
+    "name": Alunos.DYLAN,
     "value": 1
   },
   {
-    "name": Alunos.GEANDERSON,
+    "name": Alunos.ERICK,
     "value": 1
   },
   {
-    "name": Alunos.GUILHERME,
+    "name": Alunos.GAUCHO,
     "value": 1
   },
   {
-    "name": Alunos.JOAO,
+    "name": Alunos.MATHEUS,
     "value": 1
   },
   {
-    "name": Alunos.JONATAS,
+    "name": Alunos.PABLO,
     "value": 1
   },
   {

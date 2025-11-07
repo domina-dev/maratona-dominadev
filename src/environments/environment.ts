@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // url_api: 'http://ec2-18-230-138-242.sa-east-1.compute.amazonaws.com:8080',
-  url_api: 'http://localhost:8080',
+  url_api: 'https://18.229.116.28',
 };
 
 /*

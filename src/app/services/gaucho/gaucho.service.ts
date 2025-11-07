@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
+import { NumberArray } from 'd3';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VictorService extends BaseService {
+export class GauchoService extends BaseService{
 
-  constructor() {
+  constructor() { 
     super();
   }
+
 }

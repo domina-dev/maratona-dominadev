@@ -8,12 +8,12 @@ import { CompilacaoModalComponent } from 'src/app/modais/compilacao-modal/compil
 import { ConfirmacaoComponent } from 'src/app/modais/confirmacao/confirmacao.component';
 import { Compilacao } from 'src/app/model/compilacao';
 import { Exercicio } from 'src/app/model/exercicio';
-import { BrunoService } from 'src/app/services/bruno/bruno.service';
+import { ErickService } from 'src/app/services/erick/erick.service';
 import { CommomService } from 'src/app/services/commom.service';
-import { GeandersonService } from 'src/app/services/geanderson/geanderson.service';
-import { GuilhermeService } from 'src/app/services/guilherme/guilherme.service';
-import { JoaoService } from 'src/app/services/joao/joao.service';
-import { JonatasService } from 'src/app/services/jonatas/jonatas.service';
+import { DylanService } from 'src/app/services/dylan/dylan.service';
+import { GauchoService } from 'src/app/services/gaucho/gaucho.service';
+import { MatheusService } from 'src/app/services/matheus/matheus.service';
+import { PabloService } from 'src/app/services/pablo/pablo.service';
 import { VictorService } from 'src/app/services/victor/victor.service';
 import { Alunos, AlunosList, DadosAlunos, Status } from './data';
 
@@ -37,7 +37,7 @@ export class PainelCompilacaoComponent implements OnInit {
 	showXAxisLabel = true;
 	xAxisLabel = 'Devs';
 	showYAxisLabel = true;
-	yAxisLabel = 'Compilações';
+	yAxisLabel = 'Funções criadas';
 	timeline = true;
 	doughnut = true;
 	colorScheme = {
@@ -51,7 +51,7 @@ export class PainelCompilacaoComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
 	@ViewChild(MatSort) sort!: MatSort;
 
-	usuarioAtual = window.localStorage.getItem('atual') || Alunos.BRUNO;
+	usuarioAtual = window.localStorage.getItem('atual') || Alunos.ERICK;
 
 	exercicios: Compilacao[] = [];
 
@@ -60,9 +60,9 @@ export class PainelCompilacaoComponent implements OnInit {
 	alunos = AlunosList;
 	status = Status;
 
-	constructor(private commomService: CommomService, private brunoService: BrunoService,
-		private geandersonService: GeandersonService, private guilhermeService: GuilhermeService,
-		private joaoService: JoaoService, private jonatasService: JonatasService,
+	constructor(private commomService: CommomService, private erickService: ErickService,
+		private dylanService: DylanService, private gauchoService: GauchoService,
+		private matheusService: MatheusService, private pabloService: PabloService,
 		private victorService: VictorService, private dialog: MatDialog,
 		private snackbar: MatSnackBar) {
 		this.obterFuncoesPorAluno();
@@ -208,15 +208,16 @@ export class PainelCompilacaoComponent implements OnInit {
 			let param3: any = compilacao?.parametros[2]?.valor;
 
 			switch (this.usuarioAtual) {
-				case Alunos.BRUNO: this.brunoService[compilacao.funcao as keyof BrunoService](param1, param2, param3); break;
-				case Alunos.GEANDERSON: this.geandersonService[compilacao.funcao as keyof GeandersonService](param1, param2, param3); break;
-				case Alunos.GUILHERME: this.guilhermeService[compilacao.funcao as keyof GuilhermeService](param1, param2, param3); break;
-				case Alunos.JOAO: this.joaoService[compilacao.funcao as keyof JoaoService](param1, param2, param3); break;
-				case Alunos.JONATAS: this.jonatasService[compilacao.funcao as keyof JonatasService](param1, param2, param3); break;
+				case Alunos.ERICK: this.erickService[compilacao.funcao as keyof ErickService](param1, param2, param3); break;
+				case Alunos.DYLAN: this.dylanService[compilacao.funcao as keyof DylanService](param1, param2, param3); break;
+				case Alunos.GAUCHO: this.gauchoService[compilacao.funcao as keyof GauchoService](param1, param2, param3); break;
+				case Alunos.MATHEUS: this.matheusService[compilacao.funcao as keyof MatheusService](param1, param2, param3); break;
+				case Alunos.PABLO: this.pabloService[compilacao.funcao as keyof PabloService](param1, param2, param3); break;
 				case Alunos.VICTOR: this.victorService[compilacao.funcao as keyof VictorService](param1, param2, param3); break;
 				default: this.falhaExecucao(); break;
 			}
 		} catch (error) {
+			console.log(error);
 			this.falhaExecucao();
 		}
 	}
@@ -226,26 +227,27 @@ export class PainelCompilacaoComponent implements OnInit {
 		let mes
 		window.localStorage.setItem("dtLikertWithBtnSheet", new Date().getFullYear() + "-" + "01" + "-" + "17");
 		window.localStorage.setItem("dtLikertWithIds", new Date().getFullYear() + "-" + "01" + "-" + "18");
-		let showLikert = this.victorService.descansoLikert("dtLikertWithBtnSheet");
-		if(showLikert){
-			console.log("Mostra");
-		}else {
-			console.log("Espera completar 21 dias");			
-		}
+		// let showLikert = this.victorService.descansoLikert("dtLikertWithBtnSheet");
+		// if(showLikert){
+		// 	console.log("Mostra");
+		// }else {
+		// 	console.log("Espera completar 21 dias");			
+		// }
 		
 	}
 	executarSemParametros(compilacao: Compilacao) {
 		try {
 			switch (this.usuarioAtual) {
-				case Alunos.BRUNO: this.brunoService[compilacao.funcao as keyof BrunoService](); break;
-				case Alunos.GEANDERSON: this.geandersonService[compilacao.funcao as keyof GeandersonService](); break;
-				case Alunos.GUILHERME: this.guilhermeService[compilacao.funcao as keyof GuilhermeService](); break;
-				case Alunos.JOAO: this.joaoService[compilacao.funcao as keyof JoaoService](); break;
-				case Alunos.JONATAS: this.jonatasService[compilacao.funcao as keyof JonatasService](); break;
+				case Alunos.ERICK: this.erickService[compilacao.funcao as keyof ErickService](); break;
+				case Alunos.DYLAN: this.dylanService[compilacao.funcao as keyof DylanService](); break;
+				case Alunos.GAUCHO: this.gauchoService[compilacao.funcao as keyof GauchoService](); break;
+				case Alunos.MATHEUS: this.matheusService[compilacao.funcao as keyof MatheusService](); break;
+				case Alunos.PABLO: this.pabloService[compilacao.funcao as keyof PabloService](); break;
 				case Alunos.VICTOR: this.victorService[compilacao.funcao as keyof VictorService](); break;
 				default: this.falhaExecucao(); break;
 			}
 		} catch (error) {
+			console.log(error);
 			this.falhaExecucao();
 		}
 	}

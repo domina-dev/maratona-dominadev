@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Compilacao } from 'src/app/model/compilacao';
@@ -13,7 +13,7 @@ import { CommomService } from 'src/app/services/commom.service';
 })
 export class CompilacaoModalComponent implements OnInit {
 
-	usuarioAtual = window.localStorage.getItem('atual') || Alunos.BRUNO;
+	usuarioAtual = window.localStorage.getItem('atual') || Alunos.ERICK;
 
 	alunos = AlunosList;
 	tipos = ["string", "number", "boolean"]

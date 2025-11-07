@@ -7,24 +7,24 @@ const routes: Routes = [
     loadChildren: () => import('./pages/painel-compilacao/painel-compilacao.module').then(m => m.PainelCompilacaoModule)
   },
   {
-    path: 'bruno',
-    loadChildren: () => import('./pages/treino/bruno/bruno.module').then(m => m.BrunoModule)
+    path: 'erick',
+    loadChildren: () => import('./pages/treino/erick/erick.module').then(m => m.ErickModule)
   },
   {
-    path: 'geanderson',
-    loadChildren: () => import('./pages/treino/geanderson/geanderson.module').then(m => m.GeandersonModule)
+    path: 'dylan',
+    loadChildren: () => import('./pages/treino/dylan/dylan.module').then(m => m.DylanModule)
   },
   {
-    path: 'guilherme',
-    loadChildren: () => import('./pages/treino/guilherme/guilherme.module').then(m => m.GuilhermeModule)
+    path: 'gaucho',
+    loadChildren: () => import('./pages/treino/gaucho/gaucho.module').then(m => m.GauchoModule)
   },
   {
-    path: 'joao',
-    loadChildren: () => import('./pages/treino/joao/joao.module').then(m => m.JoaoModule)
+    path: 'matheus',
+    loadChildren: () => import('./pages/treino/matheus/matheus.module').then(m => m.MatheusModule)
   },
   {
-    path: 'jonatas',
-    loadChildren: () => import('./pages/treino/jonatas/jonatas.module').then(m => m.JonatasModule)
+    path: 'pablo',
+    loadChildren: () => import('./pages/treino/pablo/pablo.module').then(m => m.PabloModule)
   },
   {
     path: 'victor',
