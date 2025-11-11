@@ -1,0 +1,40 @@
+<div class="console-wrapper">
+  <mat-card class="console-card">
+    
+    <mat-card-header class="console-header">
+      <div class="header-content">
+        <mat-icon class="header-icon">terminal</mat-icon>
+        <mat-card-title>Console de Saída</mat-card-title>
+      </div>
+      <div class="header-actions">
+        <button 
+          mat-stroked-button 
+          color="warn" 
+          (click)="limparConsole()"
+          class="btn-limpar">
+          <mat-icon>delete_sweep</mat-icon>
+          Limpar
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="console-content">
+      <div class="console-body" #consoleBody>
+        
+        <div class="log-line" *ngFor="let log of logs" [ngClass]="'log-' + log.tipo">
+          <span class="log-timestamp">{{ log.timestamp | date:'HH:mm:ss' }}</span>
+          <mat-icon class="log-icon">{{ getIcone(log.tipo) }}</mat-icon>
+          <span class="log-message">{{ log.mensagem }}</span>
+        </div>
+
+        <div class="console-empty" *ngIf="logs.length === 0">
+          <mat-icon>code</mat-icon>
+          <p>Aguardando execução de funções...</p>
+          <small>Os logs aparecerão aqui quando você executar uma função</small>
+        </div>
+
+      </div>
+    </mat-card-content>
+
+  </mat-card>
+</div>

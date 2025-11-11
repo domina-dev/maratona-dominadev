@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { PainelCompilacaoRoutingModule } from './painel-compilacao-routing.module';
 import { PainelCompilacaoComponent } from './painel-compilacao.component';
-import { MaterialModule } from 'src/app/modules/material.module';
+import { MaterialModule } from 'src/app/core/modules/material.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ConsoleModule } from '../console/console.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CommonModule,
     PainelCompilacaoRoutingModule,
     MaterialModule,
-    NgxChartsModule
+    NgxChartsModule,
+    ConsoleModule
   ]
 })
 export class PainelCompilacaoModule { }

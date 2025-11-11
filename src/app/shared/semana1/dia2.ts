@@ -17,7 +17,7 @@ if, else, operadores lógicos, else if, swith case
 ===========================================================================================================================================================
 	4 - Faça um método que receba como parâmetro um valor em dinheiro, a moeda de um país como Dólar, Euro, Libra, etc
         Converta este valor para o Real e retorne uma mensagem agradável, contendo o valor recebido o valor da cotação + o total convertido.
-        Utilize pelo menos 5 possibilidades de moedas. Resolva este problema problema usando if else;
+        Utilize pelo menos 5 possibilidades de moedas. Resolva este problema usando if else;
 ===========================================================================================================================================================
 	5 - Faça o exercício 4 utilizando swith case.
 ===========================================================================================================================================================

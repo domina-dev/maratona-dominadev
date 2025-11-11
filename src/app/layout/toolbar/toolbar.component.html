@@ -1,7 +1,16 @@
 <p>
-    <mat-toolbar color="primary">
-
-      <span>Domina Dash</span>
-      <span class="example-spacer"></span>
-    </mat-toolbar>
-  </p> 
+  <mat-toolbar color="primary">
+    <!-- Título à esquerda -->
+    <span>Domina Dash</span>
+    
+    <!-- Espaçador flexível -->
+    <span class="example-spacer"></span>
+    
+    <!-- Informações do usuário à direita -->
+    <div class="user-info">
+      <img *ngIf="nomeUsuario" src="{{imgCargo}}" alt="Coroa" class="crown-icon">
+      <span class="user-name">{{ nomeUsuario || '' }}</span>
+      <span *ngIf="nomeUsuario && !(nomeUsuario.includes('Nunes'))" class="user-score">{{ pontuacao || 0}} pts</span>
+    </div>
+  </mat-toolbar>
+</p>

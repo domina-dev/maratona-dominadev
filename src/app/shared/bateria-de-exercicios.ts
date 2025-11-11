@@ -4,20 +4,11 @@
 ===============================================================================================================================================
     1 - Retornar a soma de dois números recebidos
 ===============================================================================================================================================
-    2 - Receber uma hora qualquer do dia em formato 24h e informar se é manhã, dia, tarde, etc...
+    2 - Receber uma hora qualquer do dia em formato 24h e informar se é manhã, tarde, noite
 ===============================================================================================================================================
-    3 - Receber um 'objeto de cliente (1)' e incluir os atributos que faltam, são eles: Nacionalidade, Endereço, id, data de nascimento
-        Pode utilizar dados aleatórios, mas o objeto final deve ser retornado pelo menos em um log com todos os atributos prenchidos
-        (1) - {
-                nome: "Vítor Nunes Macêdo",
-                idade: 24,
-                naturalidade: "Itapira - SP",
-
-            }
+    3 - Percorrer a lista de produtos que se encontra neste arquivo e informar qual o produto mais caro e o mais barato
 ===============================================================================================================================================
-    4 - Percorrer a lista de produtos que se encontra neste arquivo e informar qual o produto mais caro e o mais barato
-===============================================================================================================================================
-	5 - fazer o exercício 4 utilizando o .find() do TS
+	4 - fazer o exercício 4 utilizando o .find() do TS
 ===============================================================================================================================================
 */
 

@@ -1,8 +1,71 @@
+/* ========================================
+   ESTILOS DA TOOLBAR - DOMINA DASH
+   ======================================== */
+
+/* Espaçador flexível (já existente - mantido) */
 .example-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
+/* Cor de fundo personalizada da toolbar (já existente - mantido) */
 .mat-toolbar.mat-primary {
-    background: #8471e2;
-    // color: #ede9e0;
+  background: #8471e2;
+  // color: #ede9e0;
+}
+
+/* ========================================
+   NOVOS ESTILOS - INFORMAÇÕES DO USUÁRIO
+   ======================================== */
+
+/* Container das informações do usuário */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Nome do usuário */
+.user-name {
+  color: white;
+  font-weight: 600;
+}
+
+/* Pontuação */
+.user-score {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+}
+
+/* Ícone da coroa */
+.crown-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
+
+/* Telas menores (tablets e celulares) */
+@media (max-width: 600px) {
+  .user-info {
+    gap: 8px;
+    font-size: 14px;
   }
+  
+  .crown-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .user-name {
+    display: none; /* Oculta o nome em telas muito pequenas */
+  }
+}

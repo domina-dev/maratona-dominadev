@@ -1,18 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToolbarComponent } from './toolbar.component';
 import { MaterialModule } from 'src/app/core/modules/material.module';
-
-
+import { EditarParametrosComponent } from './editar-parametros.component';
 
 @NgModule({
-  declarations: [
-    ToolbarComponent
-  ],
+  declarations: [EditarParametrosComponent],
   imports: [
     CommonModule,
     MaterialModule
   ],
-  exports: [ToolbarComponent]
+  exports: [EditarParametrosComponent]
 })
-export class ToolbarModule { }
+export class EditarParametrosModule { }

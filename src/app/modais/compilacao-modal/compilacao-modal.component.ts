@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Compilacao } from 'src/app/model/compilacao';
-import { Alunos, AlunosList, Status } from 'src/app/pages/painel-compilacao/data';
-import { CommomService } from 'src/app/services/commom.service';
+import { Alunos, ALUNOS_LIST, Status } from 'src/app/pages/painel-compilacao/data';
+import { CommomService } from 'src/app/core/services/commom.service';
 
 @Component({
 	selector: 'app-compilacao-modal',
@@ -15,11 +15,11 @@ export class CompilacaoModalComponent implements OnInit {
 
 	usuarioAtual = window.localStorage.getItem('atual') || Alunos.ERICK;
 
-	alunos = AlunosList;
+	alunos = ALUNOS_LIST;
 	tipos = ["string", "number", "boolean"]
 
 	form = this.fb.group({
-		funcao: [''],
+		funcao: ['', Validators.required],
 		autor: [''],
 		status: [Status.EM_ANDAMENTO],
 		parametros: this.fb.array([])
@@ -32,7 +32,6 @@ export class CompilacaoModalComponent implements OnInit {
 	constructor(private fb: FormBuilder, private commomService: CommomService,
 		private readonly dialogRef: MatDialogRef<CompilacaoModalComponent>,
 		private snackbar: MatSnackBar) {
-
 	}
 
 	ngOnInit(): void {
@@ -46,8 +45,8 @@ export class CompilacaoModalComponent implements OnInit {
 			tipo: [tipoSelecionado]
 		})
 	}
-	adicionarParametro(tipoSelecionado: string) {
 
+	adicionarParametro(tipoSelecionado: string) {
 		if (this.parametros.length >= 3) {
 			this.snackbar.open(
 				"Você já adicionou o máximo de parâmetros permitidos, para adicionar mais contate o admin!",
@@ -59,21 +58,36 @@ export class CompilacaoModalComponent implements OnInit {
 			return;
 		}
 		this.parametros.push(this.novoFormParam(tipoSelecionado));
-		console.log(this.parametros.value);
+		this.validaObrigatoriedadeParametros();
 	}
 
 	removerParametro(index: number) {
 		this.parametros.removeAt(index);
-		console.log(this.parametros.value);
+		this.validaObrigatoriedadeParametros();
 	}
 
 	adicionarCompilacao() {
+		window.localStorage.getItem('usuarioSelecionado');
 		let compilacao: Compilacao = this.form.value;
 		compilacao.autor = this.usuarioAtual;
+		if (this.usuarioAtual === 'vitorfiler') {
+			compilacao.autor = window.localStorage.getItem('usuarioSelecionado') || 'BUG';
+		}
 		this.commomService.adicionar(compilacao).subscribe(response => {
 			this.dialogRef.close({ compilacao: response })
 		}, error => {
 			console.log(error);
 		})
+	}
+
+	validaObrigatoriedadeParametros() {
+		if (this.parametros.length) {
+			this.fb.group({
+				id: [null],
+				chave: ['', Validators.required],
+				valor: ['', Validators.required],
+				tipo: ['']
+			})
+		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
-Faça um método que receba a data de nascimento de uma pessoa. Se ela for maior de idade, retorne o signo dela. (Faça como quiser desde que funcione)
+Faça um método que receba a data de nascimento de uma pessoa. retorne o signo dela. (Faça como quiser desde que funcione)
 
     Áries: de 21 de março a 20 de abril;
     Touro: de 21 de abril a 20 de maio;

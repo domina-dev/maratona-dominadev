@@ -1,0 +1,27 @@
+<div class="px-6 py-4 border-b">
+    <h2 class="title m-0">Identifique-se forasteiro</h2>
+</div>
+<mat-dialog-content>
+    <div fxFlex="auto" [formGroup]="form">
+        <div fxLayout="column">
+            <mat-form-field appearance="outline">
+                <mat-label>Usuário</mat-label>
+                <input matInput formControlName="usuario" required/>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column">
+            <mat-form-field appearance="outline">
+                <mat-label>Senha</mat-label>
+                <input matInput type="password" formControlName="senha" required>
+                <mat-error *ngIf="form.get('password')?.hasError('required')">Precisamos de uma senha para fazer seu
+                    login.
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button mat-raised-button color="primary" (click)="login()" [disabled]="form.invalid"> Confirmar </button>
+</mat-dialog-actions>

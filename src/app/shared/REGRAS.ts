@@ -24,7 +24,7 @@ Regras
 	7 - Todos os métodos que possuem parâmetro devem acompanhar um ToDo(Comentário de marcação) acima de sua declaração. Ex: 
           
 		  /*
-		   * 
+		   * Recebe um nome informado em tela, e exibe no console do navegador
 		   * @param nome string
 		   *
            * /
@@ -33,5 +33,6 @@ Regras
 		  };
 		 Para isso basta começar escrevendo /**
 		 Logo na segunda vez que apertar asterísco, o vs code entregará a sugestão de completar, já listando todos seus parâmetros, escreva na frente dele seu tipo.
+		 Além disso é importante descrever para que este método serve
 
  */

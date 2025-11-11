@@ -13,8 +13,12 @@ import { DylanModule } from './pages/treino/dylan/dylan.module';
 import { ErickModule } from './pages/treino/erick/erick.module';
 import { ToolbarModule } from './layout/toolbar/toolbar.module';
 import { CompilacaoModalModule } from './modais/compilacao-modal/compilacao-modal.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ConfirmacaoModule } from './modais/confirmacao/confirmacao.module';
+import { LoginModalModule } from './modais/login/login-modal.module';
+import { DbKeyInterceptor } from './core/config/db-key-interceptor';
+import { EditarParametrosComponent } from './modais/editar-parametros/editar-parametros.component';
+import { EditarParametrosModule } from './modais/editar-parametros/editar-parametros.module';
 
 @NgModule({
   declarations: [
@@ -34,9 +38,17 @@ import { ConfirmacaoModule } from './modais/confirmacao/confirmacao.module';
     ToolbarModule,
     CompilacaoModalModule,
     ConfirmacaoModule,
-    HttpClientModule
+    HttpClientModule,
+    LoginModalModule,
+    EditarParametrosModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DbKeyInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,53 @@
+<div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+    <h2 class="title m-0">Editar Parâmetros</h2>
+</div>
+
+<mat-dialog-content fxLayout="row" fxLayoutAlign="center" [formGroup]="form">
+    <div class="card mt-2r">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12" formArrayName="parametros">
+                    <ul class="list-group mt-3" *ngFor="let parametro of parametros.controls; let i=index">
+                        <li class="list-group-item">
+                            <div class="row" [formGroupName]="i">
+                                <div class="col-md-5">
+                                    <mat-form-field fxFlex="grow" appearance="outline">
+                                        <mat-label>Chave</mat-label>
+                                        <input formControlName="chave" matInput placeholder="Ex. nomeFuncao">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-5">
+                                    <mat-form-field fxFlex="grow" appearance="outline">
+                                        <mat-label>Valor</mat-label>
+                                        <input formControlName="valor" matInput placeholder="Ex. valor123">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2" style="display: flex; justify-content: center; align-items: center;">
+                                    <mat-icon style="cursor: pointer;" color="warn" (click)="removerParametro(i)">
+                                        delete
+                                    </mat-icon>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button mat-stroked-button color="primary" (click)="adicionarParametro()">
+                                <mat-icon>add</mat-icon>
+                                Adicionar Parâmetro
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="confirmar()">
+        Confirmar
+    </button>
+</mat-dialog-actions>

@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToolbarComponent } from './toolbar.component';
 import { MaterialModule } from 'src/app/core/modules/material.module';
-
+import { ConsoleComponent } from './console.component';
 
 
 @NgModule({
   declarations: [
-    ToolbarComponent
+    ConsoleComponent
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
   ],
-  exports: [ToolbarComponent]
+  exports:[ConsoleComponent]
 })
-export class ToolbarModule { }
+export class ConsoleModule { }

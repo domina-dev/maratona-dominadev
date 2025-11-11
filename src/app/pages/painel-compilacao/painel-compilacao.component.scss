@@ -9,6 +9,10 @@ table{
     width: 100%;
 }
 
+.console{
+    width: 90% !important;
+}
+
 .mat-icon{
     color: white !important;
 }
@@ -39,6 +43,13 @@ table{
     color: red !important;
     cursor: pointer;
 }
+
+.roxo-icon {
+    color: #8471e2 !important;
+    cursor: pointer;
+}
+
+
 
 .status{
     display: flex;
