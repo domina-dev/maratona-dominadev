@@ -10,8 +10,4 @@ export class ErickService extends BaseService {
     super();
   }
 
-  execicio2(nome: string){
-    console.log("Nome recebido: ", nome);
-  }
-  
 }
