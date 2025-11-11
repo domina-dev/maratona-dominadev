@@ -13,4 +13,6 @@ Faça um método que receba a data de nascimento de uma pessoa. retorne o signo 
     Capricórnio: de 22 de dezembro a 20 de janeiro;
     Aquário: de 21 de janeiro a 18 de fevereiro;
     Peixes: de 19 de fevereiro a 20 de março;
+
+    Em seguida se necessário, o escopo da sua função principal deve ter apeas uma linha, consegue fazer isso?
 */
