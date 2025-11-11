@@ -1,27 +1,17 @@
 
 /**
 Regras
-	1 - Todos os parâmetros de métodos devem acompanhar o indicador de opcional (Uma interrogação após o nome da variável). Ex: nome?: any;
-	
-	2 - Todos os parâmetros devem SEMPRE ser tipados com o tipo any;
-	
-	3 - Variáveis globais só devem ser utilizadas quando a utilização de parâmetros não for viável;
-	
-	4 - Não crie métodos com mais de 3 parâmetros, não irá funcionar;
-	
-	5 - Todos os métodos auxiliares que você criar(Métodos que não serão chamados pela 	tela) devem receber o prefixo private;
-	
-	6 - NUNCA commitar mudanças nos arquivos/pastas: 
-			ARQUIVOS: 
-				- angular.json 
-				- package-lock.json
-				- package.json
-				- commom.service.ts
-			PASTAS: 
-				- painel-compilacao
-				- modais
+	 - Todos os parâmetros de métodos devem acompanhar o indicador de opcional (Uma interrogação após o nome da variável). Ex: nome?: any;
 
-	7 - Todos os métodos que possuem parâmetro devem acompanhar um ToDo(Comentário de marcação) acima de sua declaração. Ex: 
+	 - Variáveis globais só devem ser utilizadas quando a utilização de parâmetros não for viável;
+
+	 - Não crie métodos com mais de 3 parâmetros por hora;
+
+	 - Todos os métodos auxiliares que você criar(Métodos que não serão chamados pela 	tela) devem receber o prefixo private;
+
+	 - NUNCA commitar mudanças em arquivos/pastas fora de src/app/services se não for previamente solicitado: 
+
+	 - Todos os métodos devem acompanhar um ToDo(Comentário de marcação) acima de sua declaração. Ex: 
           
 		  /*
 		   * Recebe um nome informado em tela, e exibe no console do navegador
