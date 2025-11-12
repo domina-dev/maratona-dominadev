@@ -55,7 +55,7 @@ export class PainelCompilacaoComponent implements OnInit {
 	@ViewChild(MatSort) sort!: MatSort;
 
 	usuarioAtual = window.localStorage.getItem('atual');
-	usuarioSelecionado: any = this.usuarioAtual !== 'vitorfiler'? this.usuarioAtual : Alunos.DYLAN;
+	usuarioSelecionado: any = this.usuarioAtual !== 'vitorfiler' ? this.usuarioAtual : Alunos.DYLAN;
 
 	exercicios: Compilacao[] = [];
 
@@ -94,44 +94,6 @@ export class PainelCompilacaoComponent implements OnInit {
 		});
 	}
 
-	abrirEditar(funcao: any) {
-		console.log("TEsteeeeeeeeeeeeee", funcao);
-		const dialogRef = this.dialog.open(EditarParametrosComponent, {
-			width: '600px',
-			data: {
-				nomeFuncao: funcao.funcao,
-				parametros: funcao.parametros
-			}
-		});
-
-		dialogRef.afterClosed().subscribe(result => {
-			if (result) {
-				console.log("RESSSSSUUULT:: ", result);
-				funcao.funcao = result.funcao;
-				funcao.parametros = result.parametros;
-				this.commomService.atualizar(funcao).subscribe(response => {
-					funcao.parametros = response.parametros
-					this.snackbar.open(
-						"Parâmetros alterados com sucesso!",
-						"Fechar",
-						{
-							duration: 3000
-						}
-					)
-				}, (error) => {
-					this.consoleService.error(error);
-					this.snackbar.open(
-						"Falha ao alterar parâmetros!",
-						"Fechar",
-						{
-							duration: 3000
-						}
-					)
-				})
-			}
-		});
-	}
-
 	listaExercicios() {
 		this.tarefasAluno = this.exercicios?.filter(r => r.autor === this.usuarioAtual);
 		this.dataSource = new MatTableDataSource<Exercicio>(this.tarefasAluno);
@@ -145,7 +107,7 @@ export class PainelCompilacaoComponent implements OnInit {
 		this.commomService.listar().subscribe(response => {
 			this.atualizaGrafico(response);
 			this.exercicios = response?.filter(r => r.autor === this.usuarioSelecionado);
-
+			this.exercicios.sort((a: any, b: any) => b.id - a.id);
 			this.dataSource = new MatTableDataSource<Exercicio>(this.exercicios);
 			this.dataSource.paginator = this.paginator;
 
@@ -212,16 +174,6 @@ export class PainelCompilacaoComponent implements OnInit {
 		}
 	}
 
-	abrirDeletar(compilacao: Compilacao) {
-		const dialogRef = this.dialog.open(ConfirmacaoComponent);
-
-		dialogRef.afterClosed().subscribe(result => {
-			if (result) {
-				this.deletarCompilacao(compilacao);
-			}
-		});
-	}
-
 	deletarCompilacao(compilacao: Compilacao) {
 		this.commomService.deletar(compilacao?.id).subscribe(() => {
 			this.snackbar.open(
@@ -249,6 +201,53 @@ export class PainelCompilacaoComponent implements OnInit {
 		});
 	}
 
+	abrirEditar(funcao: any) {
+		console.log(funcao.parametros);
+		const dialogRef = this.dialog.open(EditarParametrosComponent, {
+			width: '600px',
+			data: {
+				nomeFuncao: funcao.funcao,
+				parametros: funcao.parametros
+			}
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				funcao.funcao = result.funcao;
+				funcao.parametros = result.parametros;
+				this.commomService.atualizar(funcao).subscribe(response => {
+					funcao.parametros = response.parametros
+					this.snackbar.open(
+						"Parâmetros alterados com sucesso!",
+						"Fechar",
+						{
+							duration: 3000
+						}
+					)
+				}, (error) => {
+					this.consoleService.error(error);
+					this.snackbar.open(
+						"Falha ao alterar parâmetros!",
+						"Fechar",
+						{
+							duration: 3000
+						}
+					)
+				})
+			}
+		});
+	}
+
+	abrirDeletar(compilacao: Compilacao) {
+		const dialogRef = this.dialog.open(ConfirmacaoComponent);
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.deletarCompilacao(compilacao);
+			}
+		});
+	}
+
 	execucaoDinamica(compilacao: Compilacao) {
 		try {
 			const parametrosProcessados = this.processarParametros(compilacao.parametros);
@@ -265,14 +264,23 @@ export class PainelCompilacaoComponent implements OnInit {
 		}
 
 		return parametros.map(param => {
-			if (param.tipo === "number") {
-				return +param.valor;
-			} else if (param.tipo !== "string") {
-				return JSON.parse(param.valor);
+			const valor = param.valor;
+
+			if (typeof valor === 'string' && valor.toLowerCase() === 'true') {
+				return true;
 			}
-			return param.valor;
+			if (typeof valor === 'string' && valor.toLowerCase() === 'false') {
+				return false;
+			}
+
+			if (!isNaN(parseFloat(valor)) && isFinite(valor)) {
+				return Number(valor);
+			}
+
+			return valor;
 		});
 	}
+
 
 	private executarFuncao(nomeFuncao: string, parametros: any[]) {
 		const service = this.obterService();
