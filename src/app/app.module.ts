@@ -17,7 +17,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ConfirmacaoModule } from './modais/confirmacao/confirmacao.module';
 import { LoginModalModule } from './modais/login/login-modal.module';
 import { DbKeyInterceptor } from './core/config/db-key-interceptor';
-import { EditarParametrosComponent } from './modais/editar-parametros/editar-parametros.component';
 import { EditarParametrosModule } from './modais/editar-parametros/editar-parametros.module';
 
 @NgModule({

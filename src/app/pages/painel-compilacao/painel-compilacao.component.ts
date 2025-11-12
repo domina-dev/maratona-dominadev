@@ -19,6 +19,7 @@ import { Alunos, ALUNOS_LIST, DadosAlunos, Status } from './data';
 import { LoginModalComponent } from 'src/app/modais/login/login-modal.component';
 import { ConsoleService } from 'src/app/core/services/console.service';
 import { EditarParametrosComponent } from 'src/app/modais/editar-parametros/editar-parametros.component';
+import { MudarStatusComponent } from 'src/app/modais/mudar-status/mudar-status.component';
 
 @Component({
 	selector: 'app-painel-compilacao',
@@ -32,7 +33,6 @@ export class PainelCompilacaoComponent implements OnInit {
 	fitContainer: boolean = false;
 
 	view: any = [380, 238];
-	// options for the chart
 	showXAxis = true;
 	showYAxis = true;
 	gradient = true;
@@ -46,7 +46,6 @@ export class PainelCompilacaoComponent implements OnInit {
 	colorScheme = {
 		domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
 	};
-	//pie
 	showLabels = true;
 	displayedColumns: string[] = ['funcao', 'status', 'executar', 'parametros', 'deletar'];
 	dataSource = new MatTableDataSource<Exercicio>();
@@ -55,7 +54,7 @@ export class PainelCompilacaoComponent implements OnInit {
 	@ViewChild(MatSort) sort!: MatSort;
 
 	usuarioAtual = window.localStorage.getItem('atual');
-	usuarioSelecionado: any = this.usuarioAtual !== 'vitorfiler'? this.usuarioAtual : Alunos.DYLAN;
+	usuarioSelecionado: any = this.usuarioAtual !== 'vitorfiler' ? this.usuarioAtual : Alunos.DYLAN;
 
 	exercicios: Compilacao[] = [];
 
@@ -94,39 +93,6 @@ export class PainelCompilacaoComponent implements OnInit {
 		});
 	}
 
-	abrirEditar(funcao: any) {
-		const dialogRef = this.dialog.open(EditarParametrosComponent, {
-			width: '600px',
-			data: {
-				parametros: funcao.parametros
-			}
-		});
-
-		dialogRef.afterClosed().subscribe(result => {
-			if (result) {
-				funcao.parametros = result;
-				this.commomService.atualizar(funcao).subscribe(() => {
-					this.snackbar.open(
-						"Parâmetros alterados com sucesso!",
-						"Fechar",
-						{
-							duration: 3000
-						}
-					)
-				}, (error) => {
-					this.consoleService.error(error);
-					this.snackbar.open(
-						"Falha ao alterar parâmetros!",
-						"Fechar",
-						{
-							duration: 3000
-						}
-					)
-				})
-			}
-		});
-	}
-
 	listaExercicios() {
 		this.tarefasAluno = this.exercicios?.filter(r => r.autor === this.usuarioAtual);
 		this.dataSource = new MatTableDataSource<Exercicio>(this.tarefasAluno);
@@ -140,6 +106,9 @@ export class PainelCompilacaoComponent implements OnInit {
 		this.commomService.listar().subscribe(response => {
 			this.atualizaGrafico(response);
 			this.exercicios = response?.filter(r => r.autor === this.usuarioSelecionado);
+			this.exercicios.sort((a: any, b: any) => b.id - a.id);
+
+			this.exercicios.forEach(ex => this.defineStatusCompilacao(ex));
 
 			this.dataSource = new MatTableDataSource<Exercicio>(this.exercicios);
 			this.dataSource.paginator = this.paginator;
@@ -160,7 +129,7 @@ export class PainelCompilacaoComponent implements OnInit {
 
 	atualizaGrafico(response: any) {
 		DadosAlunos.forEach(aluno => {
-			aluno.value = response?.filter((r: any) => r.autor === aluno.name)?.length || 0;
+			aluno.value = response?.filter((r: any) => r.autor === aluno.name && r.status === Status.VALIDADO)?.length || 0;
 		});
 
 		this.dadosAlunos = DadosAlunos;
@@ -169,8 +138,24 @@ export class PainelCompilacaoComponent implements OnInit {
 	defineStatusCompilacao(compilacao: Compilacao) {
 		switch (compilacao.status) {
 			case Status.EM_ANDAMENTO:
-				compilacao.icone = "access_time"
+				compilacao.icone = "schedule"
 				return Status.EM_ANDAMENTO
+
+			case Status.EM_APROVACAO:
+				compilacao.icone = "pending"
+				return Status.EM_APROVACAO
+
+			case Status.EM_TESTES:
+				compilacao.icone = "science"
+				return Status.EM_TESTES
+
+			case Status.VALIDADO:
+				compilacao.icone = "check_circle"
+				return Status.VALIDADO
+
+			case Status.DEVOLVIDA:
+				compilacao.icone = "cancel"
+				return Status.DEVOLVIDA
 
 			case Status.AGUARDANDO_CORRECAO:
 				compilacao.icone = "pending"
@@ -193,8 +178,67 @@ export class PainelCompilacaoComponent implements OnInit {
 				return Status.ARQUIVADA
 
 			default:
-				compilacao.icone = "access_time"
+				compilacao.icone = "schedule"
 				return Status.EM_ANDAMENTO
+		}
+	}
+
+	podeAlterarStatus(compilacao: Compilacao): boolean {
+		if (this.usuarioAtual === 'vitorfiler') {
+			return true;
+		}
+
+		if (compilacao.status === Status.EM_ANDAMENTO || compilacao.status === Status.DEVOLVIDA) {
+			return compilacao.autor === this.usuarioAtual;
+		}
+
+		return false;
+	}
+
+	abrirMudarStatus(compilacao: Compilacao) {
+		const dialogRef = this.dialog.open(MudarStatusComponent, {
+			width: '500px',
+			data: {
+				usuarioAtual: this.usuarioAtual,
+				statusAtual: compilacao.status,
+				compilacao: compilacao
+			}
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				compilacao.status = result.novoStatus;
+				this.commomService.atualizar(compilacao).subscribe(() => {
+					this.snackbar.open(
+						"Status alterado com sucesso!",
+						"Fechar",
+						{
+							duration: 3000
+						}
+					)
+					this.obterFuncoesPorAluno();
+				}, error => {
+					this.consoleService.error(error);
+					this.snackbar.open(
+						"Falha ao alterar status!",
+						"Fechar",
+						{
+							duration: 3000
+						}
+					)
+				});
+			}
+		});
+	}
+
+	getStatusColor(status: string): string {
+		switch (status) {
+			case Status.EM_ANDAMENTO: return '#2196F3';
+			case Status.EM_APROVACAO: return '#FF9800';
+			case Status.EM_TESTES: return '#9C27B0';
+			case Status.VALIDADO: return '#4CAF50';
+			case Status.DEVOLVIDA: return '#F44336';
+			default: return '#757575';
 		}
 	}
 
@@ -205,16 +249,6 @@ export class PainelCompilacaoComponent implements OnInit {
 		if (this.dataSource.paginator) {
 			this.dataSource.paginator.firstPage();
 		}
-	}
-
-	abrirDeletar(compilacao: Compilacao) {
-		const dialogRef = this.dialog.open(ConfirmacaoComponent);
-
-		dialogRef.afterClosed().subscribe(result => {
-			if (result) {
-				this.deletarCompilacao(compilacao);
-			}
-		});
 	}
 
 	deletarCompilacao(compilacao: Compilacao) {
@@ -244,6 +278,52 @@ export class PainelCompilacaoComponent implements OnInit {
 		});
 	}
 
+	abrirEditar(funcao: any) {
+		const dialogRef = this.dialog.open(EditarParametrosComponent, {
+			width: '600px',
+			data: {
+				nomeFuncao: funcao.funcao,
+				parametros: funcao.parametros
+			}
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				funcao.funcao = result.funcao;
+				funcao.parametros = result.parametros;
+				this.commomService.atualizar(funcao).subscribe(response => {
+					funcao.parametros = response.parametros
+					this.snackbar.open(
+						"Parâmetros alterados com sucesso!",
+						"Fechar",
+						{
+							duration: 3000
+						}
+					)
+				}, (error) => {
+					this.consoleService.error(error);
+					this.snackbar.open(
+						"Falha ao alterar parâmetros!",
+						"Fechar",
+						{
+							duration: 3000
+						}
+					)
+				})
+			}
+		});
+	}
+
+	abrirDeletar(compilacao: Compilacao) {
+		const dialogRef = this.dialog.open(ConfirmacaoComponent);
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.deletarCompilacao(compilacao);
+			}
+		});
+	}
+
 	execucaoDinamica(compilacao: Compilacao) {
 		try {
 			const parametrosProcessados = this.processarParametros(compilacao.parametros);
@@ -260,14 +340,23 @@ export class PainelCompilacaoComponent implements OnInit {
 		}
 
 		return parametros.map(param => {
-			if (param.tipo === "number") {
-				return +param.valor;
-			} else if (param.tipo !== "string") {
-				return JSON.parse(param.valor);
+			const valor = param.valor;
+
+			if (typeof valor === 'string' && valor.toLowerCase() === 'true') {
+				return true;
 			}
-			return param.valor;
+			if (typeof valor === 'string' && valor.toLowerCase() === 'false') {
+				return false;
+			}
+
+			if (!isNaN(parseFloat(valor)) && isFinite(valor)) {
+				return Number(valor);
+			}
+
+			return valor;
 		});
 	}
+
 
 	private executarFuncao(nomeFuncao: string, parametros: any[]) {
 		const service = this.obterService();
@@ -293,7 +382,6 @@ export class PainelCompilacaoComponent implements OnInit {
 	}
 
 	testeLikert() {
-		// let now = new Date();
 		let mes
 		window.localStorage.setItem("dtLikertWithBtnSheet", new Date().getFullYear() + "-" + "01" + "-" + "17");
 		window.localStorage.setItem("dtLikertWithIds", new Date().getFullYear() + "-" + "01" + "-" + "18");
