@@ -35,20 +35,7 @@ export class MudarStatusComponent implements OnInit {
   }
 
   private getProximosStatusAdmin(statusAtual: Status): Status[] {
-    switch (statusAtual) {
-      case Status.EM_ANDAMENTO:
-        return [Status.EM_APROVACAO, Status.DEVOLVIDA];
-      case Status.EM_APROVACAO:
-        return [Status.EM_TESTES, Status.DEVOLVIDA];
-      case Status.EM_TESTES:
-        return [Status.VALIDADO, Status.DEVOLVIDA];
-      case Status.VALIDADO:
-        return [];
-      case Status.DEVOLVIDA:
-        return [Status.EM_APROVACAO];
-      default:
-        return [];
-    }
+        return [Status.EM_ANDAMENTO, Status.EM_APROVACAO, Status.EM_TESTES, Status.DEVOLVIDA, Status.VALIDADO];
   }
 
   private getProximosStatusDev(statusAtual: Status): Status[] {
