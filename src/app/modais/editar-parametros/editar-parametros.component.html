@@ -1,8 +1,14 @@
 <div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
-    <h2 class="title m-0">Editar Parâmetros</h2>
+    <h2 class="title m-0">Editar Compilação</h2>
 </div>
 
-<mat-dialog-content fxLayout="row" fxLayoutAlign="center" [formGroup]="form">
+<mat-dialog-content [formGroup]="form" class="dialog-content-container">
+    
+    <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Nome Função</mat-label>
+        <input formControlName="funcao" matInput placeholder="Ex. nomeFuncao" #input>
+    </mat-form-field>
+
     <div class="card mt-2r">
         <div class="card-body">
             <div class="row">
@@ -22,15 +28,17 @@
                                         <input formControlName="valor" matInput placeholder="Ex. valor123">
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-2" style="display: flex; justify-content: center; align-items: center;">
-                                    <mat-icon style="cursor: pointer;" color="warn" (click)="removerParametro(i)">
+                                <div class="col-md-2"
+                                    style="display: flex; justify-content: center; align-items: center;">
+                                    <mat-icon style="cursor: pointer;" color="warn"
+                                        (click)="removerParametro(parametro, i)">
                                         delete
                                     </mat-icon>
                                 </div>
                             </div>
                         </li>
                     </ul>
-                    
+
                     <div class="row mt-3">
                         <div class="col-12">
                             <button mat-stroked-button color="primary" (click)="adicionarParametro()">

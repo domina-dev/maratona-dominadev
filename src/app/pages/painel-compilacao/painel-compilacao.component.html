@@ -57,14 +57,13 @@
                                         <mat-icon class="icon" *ngSwitchDefault>
                                             {{row.icone}}
                                         </mat-icon>
-
                                         <span> {{row.status}} </span>
                                     </div>
                                 </td>
                             </ng-container>
 
                             <ng-container matColumnDef="executar">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Qtd. params </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                                 <td mat-cell *matCellDef="let row">
                                     <button class="cor-button" (click)="execucaoDinamica(row)" mat-raised-button>
                                         Executar
@@ -74,24 +73,27 @@
                             </ng-container>
 
                             <ng-container matColumnDef="parametros">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Qtd. params </th>
-                                <td mat-cell *matCellDef="let row">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="params-column"> params </th>
+                                <td mat-cell *matCellDef="let row" class="params-column">
                                     {{row.parametros.length}}
-
-                                    <button *ngIf="usuarioAtual && usuarioAtual === usuarioSelecionado || usuarioAtual === 'vitorfiler'" mat-icon-button
-                                        aria-label="ícone Button" (click)="abrirEditar(row)">
-                                        <mat-icon class="roxo-icon" color="primary">edit</mat-icon>
-                                    </button>
                                 </td>
                             </ng-container>
 
                             <ng-container matColumnDef="deletar">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                                 <td mat-cell *matCellDef="let row">
-                                    <button *ngIf="usuarioAtual && usuarioAtual === usuarioSelecionado || usuarioAtual === 'vitorfiler'"
-                                        (click)="abrirDeletar(row)" mat-icon-button aria-label="ícone Button">
-                                        <mat-icon class="red-icon" color="warn">delete</mat-icon>
-                                    </button>
+                                    <div class="actions-container">
+                                        <button
+                                            *ngIf="usuarioAtual && usuarioAtual === usuarioSelecionado || usuarioAtual === 'vitorfiler'"
+                                            mat-icon-button aria-label="ícone Button" (click)="abrirEditar(row)">
+                                            <mat-icon class="roxo-icon" color="primary">edit</mat-icon>
+                                        </button>
+                                        <button
+                                            *ngIf="usuarioAtual && usuarioAtual === usuarioSelecionado || usuarioAtual === 'vitorfiler'"
+                                            (click)="abrirDeletar(row)" mat-icon-button aria-label="ícone Button">
+                                            <mat-icon class="red-icon" color="warn">delete</mat-icon>
+                                        </button>
+                                    </div>
                                 </td>
                             </ng-container>
 

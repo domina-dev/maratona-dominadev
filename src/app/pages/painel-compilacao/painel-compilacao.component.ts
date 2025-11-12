@@ -95,17 +95,22 @@ export class PainelCompilacaoComponent implements OnInit {
 	}
 
 	abrirEditar(funcao: any) {
+		console.log("TEsteeeeeeeeeeeeee", funcao);
 		const dialogRef = this.dialog.open(EditarParametrosComponent, {
 			width: '600px',
 			data: {
+				nomeFuncao: funcao.funcao,
 				parametros: funcao.parametros
 			}
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				funcao.parametros = result;
-				this.commomService.atualizar(funcao).subscribe(() => {
+				console.log("RESSSSSUUULT:: ", result);
+				funcao.funcao = result.funcao;
+				funcao.parametros = result.parametros;
+				this.commomService.atualizar(funcao).subscribe(response => {
+					funcao.parametros = response.parametros
 					this.snackbar.open(
 						"Parâmetros alterados com sucesso!",
 						"Fechar",

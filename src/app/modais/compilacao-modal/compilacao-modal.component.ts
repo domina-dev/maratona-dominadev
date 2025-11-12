@@ -62,6 +62,7 @@ export class CompilacaoModalComponent implements OnInit {
 	}
 
 	removerParametro(index: number) {
+		console.log(this.parametros);
 		this.parametros.removeAt(index);
 		this.validaObrigatoriedadeParametros();
 	}

@@ -5,15 +5,15 @@
     align-items: center;
 }
 
-table{
+table {
     width: 100%;
 }
 
-.console{
+.console {
     width: 90% !important;
 }
 
-.mat-icon{
+.mat-icon {
     color: white !important;
 }
 
@@ -21,23 +21,24 @@ table{
     width: 35rem;
 }
 
-.example-header-image {
-    background-image: url("https://dominadev.s3.sa-east-1.amazonaws.com/alunos/pablo.png");
-    background-size: cover;
-    cursor: pointer;
+.actions-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-.btn-add{
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
+.btn-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 08px;
 }
 
-.cor-button{
-    background-color:#8471e2;
+.cor-button {
+    background-color: #8471e2;
     color: white;
-} 
+}
 
 .red-icon {
     color: red !important;
@@ -49,14 +50,17 @@ table{
     cursor: pointer;
 }
 
-
-
-.status{
+.status {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    .icon{
-        color: #8471e2 !important;
-        margin-right: 3px;
-    }
+}
+
+.status .icon {
+    color: #8471e2 !important;
+    margin-right: 3px;
+}
+
+.params-column {
+    text-align: center;
 }
