@@ -29,4 +29,10 @@ export class CommomService {
     }).pipe(take(1))
   }
 
+  deletarParam(id: number): Observable<any>{
+    return this.http.delete(`${environment.url_api}/compilacao/param`, {
+      params: { id: id}
+    }).pipe(take(1))
+  }
+
 }

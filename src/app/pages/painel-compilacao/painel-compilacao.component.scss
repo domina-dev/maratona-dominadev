@@ -2,42 +2,116 @@
     margin-top: 3rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
-table{
-    width: 100%;
+.row {
+    display: flex;
+    gap: 30px;
+    flex-wrap: nowrap;
 }
 
-.console{
-    width: 90% !important;
+.col-md-6 {
+    flex: 0 0 auto;
 }
 
-.mat-icon{
-    color: white !important;
-}
-
-.example-card {
+.col-md-6:first-child .example-card {
     width: 35rem;
 }
 
-.example-header-image {
-    background-image: url("https://dominadev.s3.sa-east-1.amazonaws.com/alunos/pablo.png");
-    background-size: cover;
-    cursor: pointer;
+.col-md-6:last-child .example-card {
+    width: 50rem;
 }
 
-.btn-add{
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
+table {
+    width: 100%;
+}
+
+.console {
+    width: 90% !important;
+    margin-top: 30px;
+}
+
+.example-card {
+    width: 50rem;
+}
+
+.actions-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+.btn-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 08px;
 }
 
-.cor-button{
-    background-color:#8471e2;
-    color: white;
-} 
+.btn-adicionar {
+    min-width: 48px;
+}
+
+.status-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    // gap: 4px;
+    color: white !important;
+    text-transform: none;
+    // font-weight: 500;
+    // padding: 3px 8px;
+    // font-size: 13px;
+    border-radius: 3px;
+    white-space: nowrap;
+    // min-height: 28px;
+    // width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+}
+
+.status-button mat-icon {
+    color: white !important;
+}
+
+.status-button span {
+    color: white !important;
+    white-space: nowrap;
+}
+
+.status-button:disabled {
+    opacity: 0.7;
+}
+
+.executar-button {
+    background-color: #8471e2 !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // gap: 4px;
+    text-transform: capitalize;
+    // font-weight: 500;
+    // padding: 3px 8px;
+    // font-size: 13px;
+    border-radius: 3px;
+    white-space: nowrap;
+    min-height: 28px;
+    // width: 115px;
+    // min-width: 115px;
+    // max-width: 115px;
+}
+
+.add-buttom{
+    background-color: #8471e2 !important;
+}
+
+.executar-button mat-icon {
+    color: white !important;
+}
 
 .red-icon {
     color: red !important;
@@ -49,14 +123,10 @@ table{
     cursor: pointer;
 }
 
+.params-column {
+    text-align: center;
+}
 
-
-.status{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    .icon{
-        color: #8471e2 !important;
-        margin-right: 3px;
-    }
+.mat-icon {
+    vertical-align: middle;
 }

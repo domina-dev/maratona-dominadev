@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommomService } from 'src/app/core/services/commom.service';
 
 @Component({
   selector: 'app-editar-parametros',
@@ -10,6 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class EditarParametrosComponent implements OnInit {
 
   form = this.fb.group({
+    funcao: ['', Validators.required],
     parametros: this.fb.array([])
   });
 
@@ -20,27 +22,32 @@ export class EditarParametrosComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditarParametrosComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    private commomService: CommomService
+  ) {
+    this.preencherFuncao();
+  }
 
   ngOnInit(): void {
-    // Verifica se recebeu dados e se tem parâmetros
-    if (this.data?.parametros && Array.isArray(this.data.parametros) && this.data.parametros.length > 0) {
-      // Preenche o FormArray com os parâmetros recebidos
+    if (this.data && Array.isArray(this.data.parametros) && this.data.parametros.length > 0) {
+      this.data.parametros.sort((a: any, b: any) => b.id - a.id);
       this.preencherParametros(this.data.parametros);
     } else {
-      // Se não recebeu parâmetros, adiciona um campo vazio
       this.adicionarParametro();
     }
   }
 
-  /**
-   * Preenche o FormArray com os parâmetros recebidos
-   */
+  preencherFuncao() {
+    this.form = this.fb.group({
+      funcao: [this.data.nomeFuncao, Validators.required],
+      parametros: this.fb.array([])
+    });
+  }
+
   preencherParametros(parametros: any[]): void {
     parametros.forEach(param => {
       this.parametros.push(this.fb.group({
-        id: [param.id || null],
+        id: [param.id],
         chave: [param.chave || ''],
         valor: [param.valor || ''],
         tipo: [param.tipo || '']
@@ -48,9 +55,6 @@ export class EditarParametrosComponent implements OnInit {
     });
   }
 
-  /**
-   * Cria um novo FormGroup para parâmetro
-   */
   novoFormParam(): FormGroup {
     return this.fb.group({
       id: [null],
@@ -60,32 +64,30 @@ export class EditarParametrosComponent implements OnInit {
     });
   }
 
-  /**
-   * Adiciona um novo parâmetro ao FormArray
-   */
   adicionarParametro(): void {
     this.parametros.push(this.novoFormParam());
   }
 
-  /**
-   * Remove um parâmetro do FormArray
-   */
-  removerParametro(index: number): void {
+  removerParametro(parametro: any, index: number): void {
     this.parametros.removeAt(index);
+    this.deletarParamBackend(parametro.value);
   }
 
-  /**
-   * Confirma e fecha a modal retornando os dados
-   */
-  confirmar(): void {
-    if (this.form.valid) {
-      this.dialogRef.close(this.form.value.parametros);
+  deletarParamBackend(parametro: any) {
+    if (parametro && parametro.id) {
+      this.commomService.deletarParam(parametro.id).subscribe(response => {
+      }, (error) => {
+        console.log(error);
+      });
     }
   }
 
-  /**
-   * Cancela e fecha a modal
-   */
+  confirmar(): void {
+    if (this.form.valid) {
+      this.dialogRef.close(this.form.value);
+    }
+  }
+
   cancelar(): void {
     this.dialogRef.close();
   }
