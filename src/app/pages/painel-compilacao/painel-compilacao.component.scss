@@ -2,7 +2,25 @@
     margin-top: 3rem;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.row {
+    display: flex;
+    gap: 30px;
+    flex-wrap: nowrap;
+}
+
+.col-md-6 {
+    flex: 0 0 auto;
+}
+
+.col-md-6:first-child .example-card {
+    width: 35rem;
+}
+
+.col-md-6:last-child .example-card {
+    width: 50rem;
 }
 
 table {
@@ -11,14 +29,11 @@ table {
 
 .console {
     width: 90% !important;
-}
-
-.mat-icon {
-    color: white !important;
+    margin-top: 30px;
 }
 
 .example-card {
-    width: 35rem;
+    width: 50rem;
 }
 
 .actions-container {
@@ -26,6 +41,7 @@ table {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    gap: 4px;
 }
 
 .btn-add {
@@ -35,9 +51,62 @@ table {
     margin-bottom: 08px;
 }
 
-.cor-button {
-    background-color: #8471e2;
-    color: white;
+.btn-adicionar {
+    min-width: 48px;
+}
+
+.status-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    // gap: 4px;
+    color: white !important;
+    text-transform: none;
+    // font-weight: 500;
+    // padding: 3px 8px;
+    // font-size: 13px;
+    border-radius: 3px;
+    white-space: nowrap;
+    // min-height: 28px;
+    // width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+}
+
+.status-button mat-icon {
+    color: white !important;
+}
+
+.status-button span {
+    color: white !important;
+    white-space: nowrap;
+}
+
+.status-button:disabled {
+    opacity: 0.7;
+}
+
+.executar-button {
+    background-color: #8471e2 !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // gap: 4px;
+    text-transform: capitalize;
+    // font-weight: 500;
+    // padding: 3px 8px;
+    // font-size: 13px;
+    border-radius: 3px;
+    white-space: nowrap;
+    min-height: 28px;
+    // width: 115px;
+    // min-width: 115px;
+    // max-width: 115px;
+}
+
+.executar-button mat-icon {
+    color: white !important;
 }
 
 .red-icon {
@@ -50,17 +119,10 @@ table {
     cursor: pointer;
 }
 
-.status {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.status .icon {
-    color: #8471e2 !important;
-    margin-right: 3px;
-}
-
 .params-column {
     text-align: center;
+}
+
+.mat-icon {
+    vertical-align: middle;
 }

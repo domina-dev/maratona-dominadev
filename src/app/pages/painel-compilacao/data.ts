@@ -22,6 +22,10 @@ export enum Alunos {
 
 export enum Status {
   EM_ANDAMENTO = "Em andamento",
+  EM_APROVACAO = "Em Aprovação",
+  EM_TESTES = "Em Testes",
+  VALIDADO = "Validado",
+  DEVOLVIDA = "Devolvida",
   AGUARDANDO_CORRECAO = "Aguardando correção",
   CORRIGIDA = "Corrigida",
   AGUARDANDO_PONTUACAO = "Aguardando pontuação",
@@ -64,4 +68,3 @@ export const DadosAlunos = [
     "value": 1
   }
 ];
-

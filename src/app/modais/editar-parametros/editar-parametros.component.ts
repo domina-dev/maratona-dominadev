@@ -76,7 +76,6 @@ export class EditarParametrosComponent implements OnInit {
   deletarParamBackend(parametro: any) {
     if (parametro && parametro.id) {
       this.commomService.deletarParam(parametro.id).subscribe(response => {
-        console.log(response);
       }, (error) => {
         console.log(error);
       });

@@ -1,0 +1,44 @@
+<div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+    <h2 class="title m-0">Alterar Status da Função</h2>
+</div>
+
+<mat-dialog-content class="dialog-content">
+    <div class="status-atual" *ngIf="data?.statusAtual">
+        <p class="label">Status Atual:</p>
+        <div class="status-badge" [style.background-color]="getStatusBgColor(data.statusAtual)">
+            <mat-icon [style.color]="getStatusColor(data.statusAtual)">
+                {{ getStatusIcon(data.statusAtual) }}
+            </mat-icon>
+            <span [style.color]="getStatusColor(data.statusAtual)">
+                {{ data.statusAtual }}
+            </span>
+        </div>
+    </div>
+
+    <div class="status-selection">
+        <p class="label">Selecione o novo status:</p>
+        <div class="status-options">
+            <div *ngFor="let status of statusDisponiveis" 
+                 class="status-option"
+                 [class.selected]="statusSelecionado === status"
+                 (click)="statusSelecionado = status"
+                 [style.border-color]="statusSelecionado === status ? getStatusColor(status) : '#e0e0e0'">
+                <div class="status-badge" [style.background-color]="getStatusBgColor(status)">
+                    <mat-icon [style.color]="getStatusColor(status)">
+                        {{ getStatusIcon(status) }}
+                    </mat-icon>
+                    <span [style.color]="getStatusColor(status)">
+                        {{ status }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="confirmar()" [disabled]="!statusSelecionado">
+        Confirmar
+    </button>
+</mat-dialog-actions>
