@@ -342,21 +342,116 @@ export class PainelCompilacaoComponent implements OnInit {
 		return parametros.map(param => {
 			const valor = param.valor;
 
-			if (typeof valor === 'string' && valor.toLowerCase() === 'true') {
+			// Se não for string, retorna o valor original
+			if (typeof valor !== 'string') {
+				return valor;
+			}
+
+			// 1. Tentar converter para Boolean
+			if (valor.toLowerCase() === 'true') {
 				return true;
 			}
-			if (typeof valor === 'string' && valor.toLowerCase() === 'false') {
+			if (valor.toLowerCase() === 'false') {
 				return false;
 			}
 
-			if (!isNaN(parseFloat(valor)) && isFinite(valor)) {
+			// 2. Tentar converter para Date
+			const dataConvertida = this.tentarConverterParaData(valor);
+			if (dataConvertida) {
+				return dataConvertida;
+			}
+
+			// 3. Tentar converter para Number
+			if (!isNaN(parseFloat(valor)) && isFinite(valor as any)) {
 				return Number(valor);
 			}
 
+			// 4. Retornar como String
 			return valor;
 		});
 	}
 
+	/**
+	 * Tenta converter uma string para Date
+	 * Suporta os formatos:
+	 * - DD/MM/AAAA (ex: 15/10/2000)
+	 * - DD-MM-AAAA (ex: 15-10-2000)
+	 * - AAAA-MM-DD (ex: 2000-10-15) - formato ISO
+	 * - DD/MM/AAAA HH:mm:ss (ex: 15/10/2000 14:30:00)
+	 * 
+	 * @param valor String a ser convertida
+	 * @returns Date se for uma data válida, null caso contrário
+	 */
+	private tentarConverterParaData(valor: string): Date | null {
+		// Remover espaços extras
+		valor = valor.trim();
+
+		// Regex para DD/MM/AAAA ou DD-MM-AAAA (com ou sem hora)
+		const regexDataBR = /^(\d{2})[\/\-](\d{2})[\/\-](\d{4})(\s+\d{2}:\d{2}(:\d{2})?)?$/;
+
+		// Regex para AAAA-MM-DD (formato ISO)
+		const regexDataISO = /^(\d{4})-(\d{2})-(\d{2})(T\d{2}:\d{2}:\d{2})?$/;
+
+		// Tentar formato brasileiro: DD/MM/AAAA
+		const matchBR = valor.match(regexDataBR);
+		if (matchBR) {
+			const dia = parseInt(matchBR[1], 10);
+			const mes = parseInt(matchBR[2], 10);
+			const ano = parseInt(matchBR[3], 10);
+			const hora = matchBR[4] ? matchBR[4].trim() : null;
+
+			// Validar se é uma data válida
+			if (this.isDataValida(dia, mes, ano)) {
+				if (hora) {
+					// Se tiver hora, incluir na data
+					const [hh, mm, ss = '00'] = hora.split(':');
+					return new Date(ano, mes - 1, dia, parseInt(hh), parseInt(mm), parseInt(ss));
+				}
+				return new Date(ano, mes - 1, dia);
+			}
+		}
+
+		// Tentar formato ISO: AAAA-MM-DD
+		const matchISO = valor.match(regexDataISO);
+		if (matchISO) {
+			const ano = parseInt(matchISO[1], 10);
+			const mes = parseInt(matchISO[2], 10);
+			const dia = parseInt(matchISO[3], 10);
+
+			if (this.isDataValida(dia, mes, ano)) {
+				return new Date(ano, mes - 1, dia);
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Valida se dia, mês e ano formam uma data válida
+	 */
+	private isDataValida(dia: number, mes: number, ano: number): boolean {
+		// Validações básicas
+		if (mes < 1 || mes > 12) return false;
+		if (dia < 1 || dia > 31) return false;
+		if (ano < 1900 || ano > 2100) return false; // Range razoável
+
+		// Validar dias por mês
+		const diasPorMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+		// Verificar ano bissexto
+		if (this.isAnoBissexto(ano)) {
+			diasPorMes[1] = 29;
+		}
+
+		return dia <= diasPorMes[mes - 1];
+	}
+
+	/**
+	 * Verifica se o ano é bissexto
+	 */
+	private isAnoBissexto(ano: number): boolean {
+		return (ano % 4 === 0 && ano % 100 !== 0) || (ano % 400 === 0);
+	}
 
 	private executarFuncao(nomeFuncao: string, parametros: any[]) {
 		const service = this.obterService();
