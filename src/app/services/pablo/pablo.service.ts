@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
-import { log } from 'util';
+
+const COTACAO_DOLAR = 5.32
+const COTACAO_EURO = 6.17
+const COTACAO_LIBRA = 6.99
+const COTACAO_IENE = 0.034
+const COTACAO_PESO_ARS = 0.0038
 
 @Injectable({
   providedIn: 'root'
@@ -19,21 +24,49 @@ export class PabloService extends BaseService {
     let resultado = (numero1 + numero2 + numero3) / 3;
     console.log(resultado);
   }
+  /**
+   * 
+   * @param numero 
+   * 
+   */
+  analisarLista(numero: number) {
+    let lista = [0, 2, 3, 8, 17]
+    const numeroLista = lista.length;
+    if (lista.length === 0) {
+      console.log("lista vazia");
 
-  mostraIdade(dataNascimento: Date) {
-    let hoje = new Date();
-    let idade = hoje.getFullYear() - dataNascimento.getFullYear()
-    if (idade >= 18) {
-      console.log("maior de idade", idade)
     }
-    else {
-      console.log("menor de idade", idade);
-    }
+    console.log(numeroLista);
+    { numeroLista };
   }
 
-  verificacaoEleitoral(dataNascimento: Date) {
+
+
+  verficaIdade(dtNascimento: Date) {
+    let hoje = new Date;
+    let idade = hoje.getFullYear() - dtNascimento.getFullYear();
+    let anoAniversario = new Date(hoje.getFullYear(), dtNascimento.getMonth(), dtNascimento.getDate());
+
+    if (hoje < anoAniversario) {
+      idade = idade - 1
+    }
+    if (idade >= 18) {
+      alert("de maior",)
+      console.log('de maior', idade);
+
+    }
+    else
+      alert("de menor"), idade;
+  }
+
+  verificaMomentoEleitoral(dtNascimento: Date) {
     let hoje = new Date();
-    let idade = hoje.getFullYear() - dataNascimento.getFullYear()
+    let idade = hoje.getFullYear() - dtNascimento.getFullYear();
+    let anoAniversario = new Date(hoje.getFullYear(), dtNascimento.getMonth(), dtNascimento.getDate());
+
+    if (hoje < anoAniversario) {
+      idade = idade - 1
+    }
     if (idade <= 15) {
       alert("15 anos ou menos não vota")
     }
@@ -47,21 +80,56 @@ export class PabloService extends BaseService {
       alert("Acima de 70 é opcional")
     }
   }
-  /**
-   * 
-   * @param numero 
-   * 
-   */       
-  analisarLista(numero: number) {
-    let lista = [0, 2, 3, 8, 17]
-    const numeroLista = lista.length;
-    if (lista.length === 0) {
-      console.log("lista vazia");
 
+  cotacaoRealIfElse(moeda: string, valor: number) {
+    let resultado;
+    if (moeda === "Dolar") {
+      resultado = valor * COTACAO_DOLAR;
+      console.log("valor de 100 Dolares convertido em Real R$:", resultado);
     }
-    console.log(numeroLista);
-    { numeroLista };
+    else if (moeda === "Euro") {
+      resultado = valor * COTACAO_EURO;
+      console.log("valor de 100 Euros convertido em  Real R$:", resultado);
+    }
+    if (moeda === "Libra") {
+      resultado = valor * COTACAO_LIBRA;
+      console.log("valor de 100 Libras convertido em Real R$:", resultado);
+    }
+    if (moeda === "Iene") {
+      resultado = valor * COTACAO_IENE;
+      console.log("valor de 100 Ienes convertido em Real R$:", resultado);
+    }
+    if (moeda === "Peso Ars") {
+      resultado = valor * COTACAO_PESO_ARS;
+      console.log("valor de 100  Pesos argentinos convertido em Real R$:", resultado);
+    }
+  }
+
+  cotacaoRealSwitch(moeda: string, valor: number) {
+    let resultado;
+    switch (moeda) {
+      case "Dolar":
+        resultado = valor * COTACAO_DOLAR;
+        console.log("valor de 100 Dolares convertido em Real R$:", resultado);
+        break;
+      case "Euro":
+        resultado = valor * COTACAO_EURO;
+        console.log("valor de 100 Euros convertido em Real R$:", resultado);
+        break;
+      case "Libra":
+        resultado = valor * COTACAO_LIBRA;
+        console.log("valor de 100 Libras convertido em Real R$:", resultado);
+        break;
+      case "Iene":
+        resultado = valor * COTACAO_IENE;
+        console.log("valor de 100 Ienes convertido em Real R$:", resultado);
+        break;
+      case "Peso Ars":
+        resultado = valor * COTACAO_PESO_ARS;
+        console.log("valor de 100 Pesos argentinos convertido em Real R$:", resultado);
+        break;
+      default: console.log("Moeda não encontrada.");
+        break;
+    }
   }
 }
-
-
