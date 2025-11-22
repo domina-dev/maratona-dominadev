@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
+import { listaProdutos } from 'src/app/shared/bateria-de-exercicios';
 
 const COTACAO_DOLAR = 5.32
 const COTACAO_EURO = 6.17
@@ -91,18 +92,19 @@ export class PabloService extends BaseService {
       resultado = valor * COTACAO_EURO;
       console.log("valor de 100 Euros convertido em  Real R$:", resultado);
     }
-    if (moeda === "Libra") {
+    else if (moeda === "Libra") {
       resultado = valor * COTACAO_LIBRA;
       console.log("valor de 100 Libras convertido em Real R$:", resultado);
     }
-    if (moeda === "Iene") {
+    else if (moeda === "Iene") {
       resultado = valor * COTACAO_IENE;
       console.log("valor de 100 Ienes convertido em Real R$:", resultado);
     }
-    if (moeda === "Peso Ars") {
+    else if (moeda === "Peso Ars") {
       resultado = valor * COTACAO_PESO_ARS;
       console.log("valor de 100  Pesos argentinos convertido em Real R$:", resultado);
     }
+    else console.log("Moeda não encontrada.");
   }
 
   cotacaoRealSwitch(moeda: string, valor: number) {
@@ -132,4 +134,28 @@ export class PabloService extends BaseService {
         break;
     }
   }
+  somar(numero1: number, numero2: number) {
+    console.log("A soma dos numeros ", numero1 + numero2)
+  }
+
+  verficaProduto() {
+    let maior = listaProdutos[0];
+    let menor = listaProdutos[3];
+    for (let index = 0; index < listaProdutos.length; index++) {
+      const element = listaProdutos[index];
+      if (element.valor > maior) {
+        maior = element
+      }
+      if (element.valor < menor) {
+        menor = element
+      }
+    }
+    console.log("O produto mais caro é:", maior);
+    console.log("O produto mais barato é:", menor);
+
+  }
+
+
+
+
 }
