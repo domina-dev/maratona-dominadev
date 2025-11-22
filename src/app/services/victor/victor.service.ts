@@ -46,6 +46,22 @@ export class VictorService extends BaseService {
 
   }
 
+  proximoAniversario(dtNascimento: Date){
+    let hoje = new Date()
+    let proxNiver = new Date(hoje.getFullYear(),dtNascimento.getMonth(),dtNascimento.getDate())
+
+    if (proxNiver < hoje) {
+      proxNiver.setFullYear(proxNiver.getFullYear() + 1)
+    }
+
+    let diffMs = proxNiver.getTime() - hoje.getTime()
+    let dias = Math.ceil(diffMs / (1000 * 60 * 60 * 24))
+
+    console.log("A diferença para o prox aniversario é", dias, "dias.");
+    
+
+  }
+
   verificacaoEleitoral(dtNascimento: Date) {
     let hoje = new Date()
     let idade = hoje.getFullYear() - dtNascimento.getFullYear()
