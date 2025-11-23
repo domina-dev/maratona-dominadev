@@ -156,6 +156,24 @@ export class PabloService extends BaseService {
   }
 
 
+  verificarProdutoMaior() {
+    let caro = listaProdutos[0];
+    let barato = listaProdutos[0];
+
+    listaProdutos.forEach((produtoAtual: any) => {
+      if (produtoAtual.valor > caro.valor) {
+        caro = produtoAtual
+      }
+      else if (produtoAtual.valor < barato.valor) {
+        barato = produtoAtual
+      }
+    });
+    console.log("Produto mais caro", caro);
+    console.log("Produto mais barato", barato);
+
+  }
 
 
+
+  
 }
