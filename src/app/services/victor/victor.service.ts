@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
 import { listaProdutos } from 'src/app/shared/bateria-de-exercicios';
+import { signos } from 'src/app/shared/semana1/mirabolante';
 
 const COTACAO_DOLAR = 5.32;
 const COTACAO_EURO = 6.17;
@@ -46,9 +47,9 @@ export class VictorService extends BaseService {
 
   }
 
-  proximoAniversario(dtNascimento: Date){
+  proximoAniversario(dtNascimento: Date) {
     let hoje = new Date()
-    let proxNiver = new Date(hoje.getFullYear(),dtNascimento.getMonth(),dtNascimento.getDate())
+    let proxNiver = new Date(hoje.getFullYear(), dtNascimento.getMonth(), dtNascimento.getDate())
 
     if (proxNiver < hoje) {
       proxNiver.setFullYear(proxNiver.getFullYear() + 1)
@@ -58,7 +59,7 @@ export class VictorService extends BaseService {
     let dias = Math.ceil(diffMs / (1000 * 60 * 60 * 24))
 
     console.log("A diferença para o prox aniversario é", dias, "dias.");
-    
+
 
   }
 
@@ -165,6 +166,28 @@ export class VictorService extends BaseService {
     console.log("O produto com menor valor é", menor);
 
 
+  }
+   
+
+  verificaSigno(dtNascimento: Date) {
+    let dia = dtNascimento.getDate();
+    let mes = dtNascimento.getMonth() + 1;
+
+    for (let index = 0; index < signos.length; index++) {
+      const s = signos[index];
+
+      if (s.inicio.mes < s.fim.mes) {
+        
+      }
+      else if (
+        (mes === s.inicio.mes && dia >= s.inicio.dia) || (mes === s.fim.mes && dia <= s.fim.dia)
+      ) {
+
+        console.log("seu signo é", s.nome);
+      }
+
+      
+    }
   }
 
 
