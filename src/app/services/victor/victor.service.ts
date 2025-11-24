@@ -167,6 +167,28 @@ export class VictorService extends BaseService {
 
   }
 
+  listagemProduto(){
+
+    let maior = listaProdutos[0]
+    let menor = listaProdutos[0]
+    
+    listaProdutos.forEach((produtoAtual: any) => {
+      
+
+      if (produtoAtual.valor > maior.valor) {
+        maior = produtoAtual
+      }
+      if (produtoAtual.valor < menor.valor) {
+        menor = produtoAtual
+      }
+      
+    });
+
+    console.log("O produto com maior valor é", maior);
+    console.log("O produto com menor valor é", menor);
+
+  }
+
 
 
 
