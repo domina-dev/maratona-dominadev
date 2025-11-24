@@ -16,3 +16,21 @@ Faça um método que receba a data de nascimento de uma pessoa. retorne o signo 
 
     Em seguida se necessário, o escopo da sua função principal deve ter apeas uma linha, consegue fazer isso?
 */
+
+
+export const signos = [
+    { nome: 'Áries', inicio: { dia: 21, mes: 3 }, fim: { dia: 20, mes: 4 } },
+    { nome: 'Touro', inicio: { dia: 21, mes: 4 }, fim: { dia: 20, mes: 5 } },
+    { nome: 'Gêmeos', inicio: { dia: 21, mes: 5 }, fim: { dia: 20, mes: 6 } },
+    { nome: 'Câncer', inicio: { dia: 21, mes: 6 }, fim: { dia: 22, mes: 7 } },
+    { nome: 'Leão', inicio: { dia: 23, mes: 7 }, fim: { dia: 22, mes: 8 } },
+    { nome: 'Virgem', inicio: { dia: 23, mes: 8 }, fim: { dia: 22, mes: 9 } },
+    { nome: 'Libra', inicio: { dia: 23, mes: 9 }, fim: { dia: 22, mes: 10 } },
+    { nome: 'Escorpião', inicio: { dia: 23, mes: 10 }, fim: { dia: 21, mes: 11 } },
+    { nome: 'Sagitário', inicio: { dia: 22, mes: 11 }, fim: { dia: 21, mes: 12 } },
+    { nome: 'Capricórnio', inicio: { dia: 22, mes: 12 }, fim: { dia: 20, mes: 1 } },
+    { nome: 'Aquário', inicio: { dia: 21, mes: 1 }, fim: { dia: 18, mes: 2 } },
+    { nome: 'Peixes', inicio: { dia: 19, mes: 2 }, fim: { dia: 20, mes: 3 } }
+      
+]
+
