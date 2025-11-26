@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
 import { listaProdutos } from 'src/app/shared/bateria-de-exercicios';
-
+import { anNs, Signo } from 'src/app/shared/semana1/mirabolante';
+/**const para tipo moedas*/
 const COTACAO_DOLAR = 5.32
 const COTACAO_EURO = 6.17
 const COTACAO_LIBRA = 6.99
@@ -12,25 +13,36 @@ const COTACAO_PESO_ARS = 0.0038
   providedIn: 'root'
 })
 export class PabloService extends BaseService {
+  signos: any;
 
   constructor() {
     super();
   }
 
-  mostrarNome(nome: string) {
+  mostrarNome(nome: string) {   /**atividade 1 - dia1.ts */
     console.log("Nome recebido:", nome)
   }
 
-  calcularNumero(numero1: number, numero2: number, numero3: number) {
+  calcularNumero(numero1: number, numero2: number, numero3: number) {       /**atividade 2 - dia1.ts */
     let resultado = (numero1 + numero2 + numero3) / 3;
     console.log(resultado);
   }
-  /**
-   * 
-   * @param numero 
-   * 
-   */
-  analisarLista(numero: number) {
+
+  proximoAniversario(dtNascimento: Date) {     /**atividade 2 - dia2.ts */
+    let hoje = new Date()
+    let proxNiver = new Date(hoje.getFullYear(), dtNascimento.getMonth(), dtNascimento.getDate())
+
+    if (proxNiver < hoje) {
+      proxNiver.setFullYear(proxNiver.getFullYear() + 1)
+    }
+
+    let diffMs = proxNiver.getTime() - hoje.getTime()
+    let dias = Math.ceil(diffMs / (1000 * 60 * 60 * 24))
+
+    console.log("A diferença para o proximo aniversario é de ", dias, "dias.");
+  }
+
+  analisarLista() {        /**atividade de aquecimento  - dia2.ts */
     let lista = [0, 2, 3, 8, 17]
     const numeroLista = lista.length;
     if (lista.length === 0) {
@@ -43,7 +55,7 @@ export class PabloService extends BaseService {
 
 
 
-  verficaIdade(dtNascimento: Date) {
+  verficaIdade(dtNascimento: Date) {        /**atividade 1 - dia2.ts */
     let hoje = new Date;
     let idade = hoje.getFullYear() - dtNascimento.getFullYear();
     let anoAniversario = new Date(hoje.getFullYear(), dtNascimento.getMonth(), dtNascimento.getDate());
@@ -60,7 +72,7 @@ export class PabloService extends BaseService {
       alert("de menor"), idade;
   }
 
-  verificaMomentoEleitoral(dtNascimento: Date) {
+  verificaMomentoEleitoral(dtNascimento: Date) {      /**atividade 3 - dia2.ts */
     let hoje = new Date();
     let idade = hoje.getFullYear() - dtNascimento.getFullYear();
     let anoAniversario = new Date(hoje.getFullYear(), dtNascimento.getMonth(), dtNascimento.getDate());
@@ -82,7 +94,7 @@ export class PabloService extends BaseService {
     }
   }
 
-  cotacaoRealIfElse(moeda: string, valor: number) {
+  cotacaoRealIfElse(moeda: string, valor: number) {      /**atividade 4-usando if/else - dia2.ts */
     let resultado;
     if (moeda === "Dolar") {
       resultado = valor * COTACAO_DOLAR;
@@ -107,7 +119,7 @@ export class PabloService extends BaseService {
     else console.log("Moeda não encontrada.");
   }
 
-  cotacaoRealSwitch(moeda: string, valor: number) {
+  cotacaoRealSwitch(moeda: string, valor: number) {       /**atividade 4-usando switch case - dia2.ts */
     let resultado;
     switch (moeda) {
       case "Dolar":
@@ -134,11 +146,11 @@ export class PabloService extends BaseService {
         break;
     }
   }
-  somar(numero1: number, numero2: number) {
+  somar(numero1: number, numero2: number) {             /**atividade de aquecimento  - dia3.ts */
     console.log("A soma dos numeros ", numero1 + numero2)
   }
 
-  verficaProduto() {
+  verficaProduto() {          /**atividade de lista- dia3.ts */
     let maior = listaProdutos[0];
     let menor = listaProdutos[3];
     for (let index = 0; index < listaProdutos.length; index++) {
@@ -156,7 +168,7 @@ export class PabloService extends BaseService {
   }
 
 
-  verificarProdutoMaior() {
+  verificarProdutoMaior() {          /**atividade de lista- dia3.ts */
     let caro = listaProdutos[0];
     let barato = listaProdutos[0];
 
@@ -173,7 +185,26 @@ export class PabloService extends BaseService {
 
   }
 
+                                 /**atividade mirabolante.ts */
+  signo(dtNascimento: Date) {
+    let data = dtNascimento.toLocaleDateString("Pt-BR");  /** toLocalDateString - usado para converter data eua / br */
+    let [dia, mes] = data.split("/").map(Number); /** split vai separa dia e mes - map pecorre toda lista de numero */
+    const dias = [21, 19, 21, 21, 21, 21, 23, 23, 23, 23, 22, 22]
+    const signos = ["Aquario", "Peixes", "Aries", "Touro", "Gemeos", "Cancer", "Leao", "Virgem", "Libra", "Escopiao", "Sagitario", "Capricornio"];
+    let indexMes = mes - 1;
+
+    if (dia < dias[indexMes]) {
+      indexMes = indexMes - 1;
+    }
+    if (indexMes < 1) {
+      indexMes = 12;
+    }
+    const signoZ = signos[indexMes];
+    console.log("A data de nascimento", data, "corresponde ao signo de", signoZ);
+  }
 
 
-  
+  signoUmaLinha(dtNas: Date) {
+    console.log(this.signos.find((signoAtual:Signo) => new Date(anNs, dtNas.getMonth(), dtNas.getDate()) >= signoAtual.dtIn && new Date(anNs, dtNas.getMonth(), dtNas.getDate()) <= signoAtual.dtF));
+  }
 }
