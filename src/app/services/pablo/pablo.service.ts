@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
 import { listaProdutos } from 'src/app/shared/bateria-de-exercicios';
-import { anNs, Signo } from 'src/app/shared/semana1/mirabolante';
 /**const para tipo moedas*/
 const COTACAO_DOLAR = 5.32
 const COTACAO_EURO = 6.17
@@ -185,7 +184,7 @@ export class PabloService extends BaseService {
 
   }
 
-                                 /**atividade mirabolante.ts */
+  /**atividade mirabolante.ts */
   signo(dtNascimento: Date) {
     let data = dtNascimento.toLocaleDateString("Pt-BR");  /** toLocalDateString - usado para converter data eua / br */
     let [dia, mes] = data.split("/").map(Number); /** split vai separa dia e mes - map pecorre toda lista de numero */
@@ -205,6 +204,41 @@ export class PabloService extends BaseService {
 
 
   signoUmaLinha(dtNas: Date) {
-    console.log(this.signos.find((signoAtual:Signo) => new Date(anNs, dtNas.getMonth(), dtNas.getDate()) >= signoAtual.dtIn && new Date(anNs, dtNas.getMonth(), dtNas.getDate()) <= signoAtual.dtF));
+    console.log(this.signos.find((signoAtual: Signo) => new Date(anNs, dtNas.getMonth(), dtNas.getDate()) >= signoAtual.dtIn && new Date(anNs, dtNas.getMonth(), dtNas.getDate()) <= signoAtual.dtF));
+  }
+
+/** moedas utilizadas na task 
+ * USD - Dolar 
+ * EUR - Euro 
+ * MXN - peso Mexicano
+ * JPY - Iene
+ * GBP - Libra
+ */
+  cotacaoApi() {
+    const moedas ="USD, EUR, MXN, JPY, GBP"                            
+    const url = "https://economia.awesomeapi.com.br/json/last/:moedas"
   }
 }
+
+export interface Signo {
+    nome: string;      // Abreviações//
+    dtIn: Date;       //dtIn - data inicial//
+    dtF: Date;        //dtF - data final//
+}
+
+export const anNs = 2024   // anNs - ano nascimento//
+
+export const signos: Signo[] = [
+    { nome: "Aries", dtIn: new Date(anNs, 2, 21), dtF: new Date(anNs, 3, 20) },
+    { nome: "Touro", dtIn: new Date(anNs, 3, 21), dtF: new Date(anNs, 4, 20) },
+    { nome: "Gemeos", dtIn: new Date(anNs, 4, 21), dtF: new Date(anNs, 5, 20) },
+    { nome: "Cancer", dtIn: new Date(anNs, 5, 21), dtF: new Date(anNs, 6, 22) },
+    { nome: "Leao", dtIn: new Date(anNs, 6, 23), dtF: new Date(anNs, 7, 22) },
+    { nome: "Virgem", dtIn: new Date(anNs, 7, 23), dtF: new Date(anNs, 8, 22) },
+    { nome: "Libra", dtIn: new Date(anNs, 8, 23), dtF: new Date(anNs, 9, 22) },
+    { nome: "Escopiao", dtIn: new Date(anNs, 9, 23), dtF: new Date(anNs, 10, 21) },
+    { nome: "Sagitario", dtIn: new Date(anNs, 10, 22), dtF: new Date(anNs, 11, 21) },
+    { nome: "Capricornio", dtIn: new Date(anNs, 11, 22), dtF: new Date(anNs, 0, 21) },
+    { nome: "Aquario", dtIn: new Date(anNs, 0, 21), dtF: new Date(anNs, 1, 18) },
+    { nome: "Peixes", dtIn: new Date(anNs, 1, 19), dtF: new Date(anNs, 2, 20) },
+]
