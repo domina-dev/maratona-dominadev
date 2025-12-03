@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
 import { listaProdutos } from 'src/app/shared/bateria-de-exercicios';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 /**const para tipo moedas*/
 const COTACAO_DOLAR = 5.32
 const COTACAO_EURO = 6.17
@@ -14,7 +16,7 @@ const COTACAO_PESO_ARS = 0.0038
 export class PabloService extends BaseService {
   signos: any;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     super();
   }
 
@@ -207,38 +209,71 @@ export class PabloService extends BaseService {
     console.log(this.signos.find((signoAtual: Signo) => new Date(anNs, dtNas.getMonth(), dtNas.getDate()) >= signoAtual.dtIn && new Date(anNs, dtNas.getMonth(), dtNas.getDate()) <= signoAtual.dtF));
   }
 
-/** moedas utilizadas na task 
- * USD - Dolar 
- * EUR - Euro 
- * MXN - peso Mexicano
- * JPY - Iene
- * GBP - Libra
- */
-  cotacaoApi() {
-    const moedas ="USD, EUR, MXN, JPY, GBP"                            
-    const url = "https://economia.awesomeapi.com.br/json/last/:moedas"
+  /** moedas utilizadas na task 
+   * USD - Dolar 
+   * EUR - Euro 
+   * MXN - peso Mexicano
+   * JPY - Iene
+   * GBP - Libra
+   */
+  cotacaoApi(moeda: string, valor: number) {
+    let resultado = 0
+    this.buscarCotacao().subscribe(response => {
+      switch (moeda) {
+        case "Dolar":
+          resultado = valor * response.USDBRL.high;
+          console.log("valor de 1 Dolar convertido em Real no momento é R$:", resultado);
+          break;
+        case "Euro":
+          resultado = valor * response.EURBRL.high;
+          console.log("valor de 1 Euro convertido em Real no momento é R$", resultado);
+          break;
+        case "Libra":
+          resultado = valor * response.GBPBRL.high;
+          console.log("valor de 1 Libra convertido em Real no momento é R$:", resultado);
+          break;
+        case "Iene Japonês":
+          resultado = valor * response.JPYBRL.high;
+          console.log("valor de 1 Iene convertido em Real R$:", resultado);
+          break;
+        case "Peso Argentinos":
+          resultado = valor * response.ARSBRL.high;
+          console.log("valor de 1 Pesos argentinos convertido em Real R$:", resultado);
+          break;
+        default: console.log("Moeda não encontrada.");
+          break;
+      }
+    },
+      (error) => {
+        console.log(error);
+
+      });
+  }
+
+  buscarCotacao(): Observable<any> {
+    return this.http.get("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL,GBP-BRL,JPY-BRL,ARS-BRL"); //função para buscar http
   }
 }
 
 export interface Signo {
-    nome: string;      // Abreviações//
-    dtIn: Date;       //dtIn - data inicial//
-    dtF: Date;        //dtF - data final//
+  nome: string;      // Abreviações//
+  dtIn: Date;       //dtIn - data inicial//
+  dtF: Date;        //dtF - data final//
 }
 
 export const anNs = 2024   // anNs - ano nascimento//
 
 export const signos: Signo[] = [
-    { nome: "Aries", dtIn: new Date(anNs, 2, 21), dtF: new Date(anNs, 3, 20) },
-    { nome: "Touro", dtIn: new Date(anNs, 3, 21), dtF: new Date(anNs, 4, 20) },
-    { nome: "Gemeos", dtIn: new Date(anNs, 4, 21), dtF: new Date(anNs, 5, 20) },
-    { nome: "Cancer", dtIn: new Date(anNs, 5, 21), dtF: new Date(anNs, 6, 22) },
-    { nome: "Leao", dtIn: new Date(anNs, 6, 23), dtF: new Date(anNs, 7, 22) },
-    { nome: "Virgem", dtIn: new Date(anNs, 7, 23), dtF: new Date(anNs, 8, 22) },
-    { nome: "Libra", dtIn: new Date(anNs, 8, 23), dtF: new Date(anNs, 9, 22) },
-    { nome: "Escopiao", dtIn: new Date(anNs, 9, 23), dtF: new Date(anNs, 10, 21) },
-    { nome: "Sagitario", dtIn: new Date(anNs, 10, 22), dtF: new Date(anNs, 11, 21) },
-    { nome: "Capricornio", dtIn: new Date(anNs, 11, 22), dtF: new Date(anNs, 0, 21) },
-    { nome: "Aquario", dtIn: new Date(anNs, 0, 21), dtF: new Date(anNs, 1, 18) },
-    { nome: "Peixes", dtIn: new Date(anNs, 1, 19), dtF: new Date(anNs, 2, 20) },
+  { nome: "Aries", dtIn: new Date(anNs, 2, 21), dtF: new Date(anNs, 3, 20) },
+  { nome: "Touro", dtIn: new Date(anNs, 3, 21), dtF: new Date(anNs, 4, 20) },
+  { nome: "Gemeos", dtIn: new Date(anNs, 4, 21), dtF: new Date(anNs, 5, 20) },
+  { nome: "Cancer", dtIn: new Date(anNs, 5, 21), dtF: new Date(anNs, 6, 22) },
+  { nome: "Leao", dtIn: new Date(anNs, 6, 23), dtF: new Date(anNs, 7, 22) },
+  { nome: "Virgem", dtIn: new Date(anNs, 7, 23), dtF: new Date(anNs, 8, 22) },
+  { nome: "Libra", dtIn: new Date(anNs, 8, 23), dtF: new Date(anNs, 9, 22) },
+  { nome: "Escopiao", dtIn: new Date(anNs, 9, 23), dtF: new Date(anNs, 10, 21) },
+  { nome: "Sagitario", dtIn: new Date(anNs, 10, 22), dtF: new Date(anNs, 11, 21) },
+  { nome: "Capricornio", dtIn: new Date(anNs, 11, 22), dtF: new Date(anNs, 0, 21) },
+  { nome: "Aquario", dtIn: new Date(anNs, 0, 21), dtF: new Date(anNs, 1, 18) },
+  { nome: "Peixes", dtIn: new Date(anNs, 1, 19), dtF: new Date(anNs, 2, 20) },
 ]
