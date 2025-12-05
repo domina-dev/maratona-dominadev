@@ -19,3 +19,10 @@ export const listaProdutos: any = [
 	{ nome: "Sabugo de milho semi novo Único dono", valor: 1 },
 	{ nome: "Retrovisor Marea 98", valor: 86 },
 ]
+
+/**
+ * BY PABLO 
+ * AnalisarLista - uma função para praticar e estudar ts.
+ * Resultado da função - ela faz a contagem do tamanho da lista, contando a quantidade dos numeros ali presente.
+ * conclusão: Desenvolvi com intuido de aprimorar os estudos.
+ */

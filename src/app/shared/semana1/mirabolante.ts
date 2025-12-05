@@ -3,7 +3,7 @@ Faça um método que receba a data de nascimento de uma pessoa. retorne o signo 
 
     Áries: de 21 de março a 20 de abril;
     Touro: de 21 de abril a 20 de maio;
-    Gêmeos: de 21 de maio a 20 de junho;
+    Gêmeos: de 21 de maio a 20 de junho;  
     Câncer: de 21 de junho a 22 de julho;
     Leão: de 23 de julho a 22 de agosto;
     Virgem: de 23 de agosto a 22 de setembro;
