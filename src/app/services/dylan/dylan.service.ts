@@ -240,8 +240,8 @@ export class DylanService extends BaseService {
       }
     });
 
-    console.log(" O produto mais caro é: ", produtoCaro.nome, " preço R$ ", produtoCaro.valor, " unidades disponíveis", produtoCaro.unidade);
-    console.log(" O produto mais barato é: ", produtoBarato.nome, " preço R$ ", produtoBarato.valor, " unidades disponíveis", produtoBarato.unidade);
+    console.log(" O produto mais caro é: ", produtoCaro.nome, " preço R$ ", produtoCaro.valor);
+    console.log(" O produto mais barato é: ", produtoBarato.nome, " preço R$ ", produtoBarato.valor);
   }
   /**
    * A função pecorre uma lista de produtos utilizando a ferramenta find, Math max e min, além do map, analisando o valor, imprime no console do navegador o mais caro e o mais barato
