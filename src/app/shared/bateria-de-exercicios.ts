@@ -12,10 +12,16 @@
 ===============================================================================================================================================
 */
 
-export const listaProdutos: any = [
-	{ nome: "Metralhadora Ak-45 Pente alongado", valor: 20000 },
-	{ nome: "Iphone 13", valor: 4300 },
-	{ nome: "Carrinho de rolimã ", valor: 200 },
-	{ nome: "Sabugo de milho semi novo Único dono", valor: 1 },
-	{ nome: "Retrovisor Marea 98", valor: 86 },
-]
+interface Produto{
+	id?: number;
+	nome:String;
+	valor: number;
+}
+
+export const listaProdutos: Produto[] = [
+	{ nome: "Metralhadora Ak-45 Pente alongado", valor: 20000},
+	{ nome: "Iphone 13", valor: 4300},
+	{ nome: "Carrinho de rolimã ", valor: 200},
+	{ nome: "Sabugo de milho semi novo Único dono", valor: 1},
+	{ nome: "Retrovisor Marea 98", valor: 86},
+]	
