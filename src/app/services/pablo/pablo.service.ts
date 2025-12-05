@@ -209,13 +209,6 @@ export class PabloService extends BaseService {
     console.log(this.signos.find((signoAtual: Signo) => new Date(anNs, dtNas.getMonth(), dtNas.getDate()) >= signoAtual.dtIn && new Date(anNs, dtNas.getMonth(), dtNas.getDate()) <= signoAtual.dtF));
   }
 
-  /** moedas utilizadas na task 
-   * USD - Dolar 
-   * EUR - Euro 
-   * MXN - peso Mexicano
-   * JPY - Iene
-   * GBP - Libra
-   */
   cotacaoApi(moeda: string, valor: number) {
     let resultado = 0
     this.buscarCotacao().subscribe(response => {
@@ -253,6 +246,31 @@ export class PabloService extends BaseService {
   buscarCotacao(): Observable<any> {
     return this.http.get("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL,GBP-BRL,JPY-BRL,ARS-BRL"); //função para buscar http
   }
+
+    signosApi(): Observable<any> {
+    return this.http.get("http://localhost:3000/signos-lista"); 
+  }
+
+    signoApi(dtNascimento: Date) {
+    let data = dtNascimento.toLocaleDateString("Pt-BR");
+    let [dia, mes] = data.split("/").map(Number);
+    const dias = [21, 19, 21, 21, 21, 21, 23, 23, 23, 23, 22, 22]
+    this.signosApi().subscribe(response =>{
+
+      let indexMes = mes - 1;
+  
+      if (dia < dias[indexMes]) {
+        indexMes = indexMes - 1;
+      }
+      if (indexMes < 1) {
+        indexMes = 12;
+      }
+       const signoZ = response[indexMes];
+
+      console.log("A data de nascimento", data, "corresponde ao signo de", signoZ);
+    })
+      
+  }
 }
 
 export interface Signo {
@@ -277,3 +295,6 @@ export const signos: Signo[] = [
   { nome: "Aquario", dtIn: new Date(anNs, 0, 21), dtF: new Date(anNs, 1, 18) },
   { nome: "Peixes", dtIn: new Date(anNs, 1, 19), dtF: new Date(anNs, 2, 20) },
 ]
+
+
+
