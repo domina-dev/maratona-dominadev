@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
 import { listaProdutos } from 'src/app/shared/bateria-de-exercicios';
 import { signos } from 'src/app/shared/semana1/mirabolante';
+import { Observable } from 'rxjs';
 
 const COTACAO_DOLAR = 5.32;
 const COTACAO_EURO = 6.17;
@@ -14,6 +15,7 @@ const COTACAO_LIBRA = 6.99;
   providedIn: 'root'
 })
 export class VictorService extends BaseService {
+  http: any;
 
   constructor() {
     super()
@@ -167,36 +169,50 @@ export class VictorService extends BaseService {
 
 
   }
-   
+
 
   verificaSigno(dtNascimento: Date) {
-    let dia = dtNascimento.getDate();
-    let mes = dtNascimento.getMonth() + 1;
-
-    for (let index = 0; index < signos.length; index++) {
-      const s = signos[index];
-
-      if (s.inicio.mes < s.fim.mes) {
-        
-      }
-      else if (
-        (mes === s.inicio.mes && dia >= s.inicio.dia) || (mes === s.fim.mes && dia <= s.fim.dia)
-      ) {
-
-        console.log("seu signo é", s.nome);
+    let diaNascimento = dtNascimento.getDate();
+    let mesNascimento = dtNascimento.getMonth() + 1;
+    let signoAtual
+    // forEach / usando 1 if apenas 
+    signos.forEach(s => {
+      if ((mesNascimento === s.inicio.mes && diaNascimento >= s.inicio.dia) || (mesNascimento === s.fim.mes && diaNascimento <= s.fim.dia)) {
+        signoAtual = s;
       }
 
-      
-    }
+    });
+    console.log(signoAtual);
   }
 
-  listagemProduto(){
+
+
+
+  alunos: alunos[] = [
+    { id: 1, nome: 'joão', nota: 5.5 },
+    { id: 2, nome: 'maria', nota: 6 },
+    { id: 3, nome: 'daniel', nota: 7.5 },
+    { id: 4, nome: 'julia', nota: 4 },
+    { id: 5, nome: 'isis', nota: 8 }
+  ]
+
+  alunosAprovado() {
+    this.alunos.filter(a => a.nota >= 6);
+
+
+    console.log("Os alunos Aprovados foram",);
+
+  }
+
+
+
+  listagemProduto() {
 
     let maior = listaProdutos[0]
     let menor = listaProdutos[0]
-    
+
     listaProdutos.forEach((produtoAtual: any) => {
-      
+
 
       if (produtoAtual.valor > maior.valor) {
         maior = produtoAtual
@@ -204,12 +220,17 @@ export class VictorService extends BaseService {
       if (produtoAtual.valor < menor.valor) {
         menor = produtoAtual
       }
-      
+
     });
 
     console.log("O produto com maior valor é", maior);
     console.log("O produto com menor valor é", menor);
 
+  }
+
+
+  signoApi(): Observable<any> {
+    return this.http.get("http://localhost:3000/signo")
   }
 
 
@@ -256,4 +277,9 @@ export class VictorService extends BaseService {
    *Hoje 01/03/2025
    aniversario 12/03/2025 
    */
+}
+export interface alunos {
+  id: number;
+  nome: string;
+  nota: number;
 }
