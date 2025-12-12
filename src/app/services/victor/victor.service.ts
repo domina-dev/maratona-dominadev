@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base.service';
 import { listaProdutos } from 'src/app/shared/bateria-de-exercicios';
-import { signos } from 'src/app/shared/semana1/mirabolante';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http'
 
 const COTACAO_DOLAR = 5.32;
 const COTACAO_EURO = 6.17;
@@ -15,9 +15,9 @@ const COTACAO_LIBRA = 6.99;
   providedIn: 'root'
 })
 export class VictorService extends BaseService {
-  http: any;
 
-  constructor() {
+
+  constructor(private http: HttpClient) {
     super()
 
   }
@@ -106,38 +106,44 @@ export class VictorService extends BaseService {
     return resultadoReal
 
   }
+  apiCotacao(): Observable<any> {
+    return this.http.get("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL,GBP-BRL,JPY-BRL,ARS-BRL")
+  }
 
   convercaoMoedaSwitch(valor: number, moeda: string) {
     let resultadoReal = 0
+    this.apiCotacao().subscribe(response => {
 
-    switch (moeda) {
-      case "dolar":
-        resultadoReal = valor * COTACAO_DOLAR;
-        console.log("O valor convertido em Real é R$:", resultadoReal);
-        break;
-      case "euro":
-        resultadoReal = valor * COTACAO_EURO;
-        console.log("O valor convertido em Real é R$:", resultadoReal);
-        break;
-      case "iene":
-        resultadoReal = valor * COTACAO_IENE;
-        console.log("O valor convertido em Real é R$:", resultadoReal);
-        break;
-      case "peso":
-        resultadoReal = valor * COTACAO_PESO;
-        console.log("O valor convertido em Real é R$:", resultadoReal);
-        break;
-      case "libra":
-        resultadoReal = valor * COTACAO_LIBRA;
-        console.log("O valor convertido em Real é R$:", resultadoReal);
-        break;
+      switch (moeda) {
+        case "Dolar":
+          resultadoReal = valor * response.USDBRL.high;
+          console.log("O valor convertido em Real é R$:", resultadoReal);
+          break;
+        case "Euro":
+          resultadoReal = valor * response.EURBRL.high;
+          console.log("O valor convertido em Real é R$:", resultadoReal);
+          break;
+        case "Iene":
+          resultadoReal = valor * response.JPYBRL.high;
+          console.log("O valor convertido em Real é R$:", resultadoReal);
+          break;
+        case "Peso":
+          resultadoReal = valor * response.ARSBRL.high;
+          console.log("O valor convertido em Real é R$:", resultadoReal);
+          break;
+        case "Libra":
+          resultadoReal = valor * response.GBPBRL.high;
+          console.log("O valor convertido em Real é R$:", resultadoReal);
+          break;
 
-      default:
-        console.log("moeda não encontrada");
+        default:
+          console.log("moeda não encontrada");
 
-        break;
+          break;
 
-    }
+      }
+    })
+
 
   }
 
@@ -170,7 +176,10 @@ export class VictorService extends BaseService {
 
   }
 
-
+  /**
+   * Recebe data informada e mostra signo no console do navegador
+   * @param dtNascimento 
+   */
   verificaSigno(dtNascimento: Date) {
     let diaNascimento = dtNascimento.getDate();
     let mesNascimento = dtNascimento.getMonth() + 1;
@@ -197,10 +206,11 @@ export class VictorService extends BaseService {
   ]
 
   alunosAprovado() {
-    this.alunos.filter(a => a.nota >= 6);
+    let alunosAprovado =
+      this.alunos.filter(a => a.nota >= 6);
 
 
-    console.log("Os alunos Aprovados foram",);
+    console.log("Os alunos Aprovados foram", alunosAprovado);
 
   }
 
@@ -231,6 +241,18 @@ export class VictorService extends BaseService {
 
   signoApi(): Observable<any> {
     return this.http.get("http://localhost:3000/signo")
+  }
+
+  signosApi(dtNascimento: Date) {
+    let diaNascimento = dtNascimento.getDate();
+    let mesNascimento = dtNascimento.getMonth() + 1;
+    let signoAtual
+    this.signoApi().subscribe(response => {
+      if ((mesNascimento === response.inicio.mes && diaNascimento >= response.inicio.dia) || (mesNascimento === response.fim.mes && diaNascimento <= response.fim.dia)) {
+        signoAtual = response;
+      }
+    })
+    console.log(signoAtual);
   }
 
 
@@ -283,3 +305,20 @@ export interface alunos {
   nome: string;
   nota: number;
 }
+
+
+const signos = [
+  { nome: 'Áries', inicio: { dia: 21, mes: 3 }, fim: { dia: 20, mes: 4 } },
+  { nome: 'Touro', inicio: { dia: 21, mes: 4 }, fim: { dia: 20, mes: 5 } },
+  { nome: 'Gêmeos', inicio: { dia: 21, mes: 5 }, fim: { dia: 20, mes: 6 } },
+  { nome: 'Câncer', inicio: { dia: 21, mes: 6 }, fim: { dia: 22, mes: 7 } },
+  { nome: 'Leão', inicio: { dia: 23, mes: 7 }, fim: { dia: 22, mes: 8 } },
+  { nome: 'Virgem', inicio: { dia: 23, mes: 8 }, fim: { dia: 22, mes: 9 } },
+  { nome: 'Libra', inicio: { dia: 23, mes: 9 }, fim: { dia: 22, mes: 10 } },
+  { nome: 'Escorpião', inicio: { dia: 23, mes: 10 }, fim: { dia: 21, mes: 11 } },
+  { nome: 'Sagitário', inicio: { dia: 22, mes: 11 }, fim: { dia: 21, mes: 12 } },
+  { nome: 'Capricórnio', inicio: { dia: 22, mes: 12 }, fim: { dia: 20, mes: 1 } },
+  { nome: 'Aquário', inicio: { dia: 21, mes: 1 }, fim: { dia: 18, mes: 2 } },
+  { nome: 'Peixes', inicio: { dia: 19, mes: 2 }, fim: { dia: 20, mes: 3 } }
+
+]
