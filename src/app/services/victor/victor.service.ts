@@ -21,16 +21,31 @@ export class VictorService extends BaseService {
     super()
 
   }
+
+  /**
+   * Recebe nome informado e mostra no console do navegador
+   * @param nome 
+   */
   mostraNome(nome: string) {
     console.log("o nome recebido é ", nome)
   }
 
+  /**
+   * Recebe 3 notas e mostra média no console do navegador
+   * @param numero1 
+   * @param numero2 
+   * @param numero3 
+   */
   calculaMedia(numero1: number, numero2: number, numero3: number) {
     let media = (numero1 + numero2 + numero3) / 3
     console.log("a média dos números informados é ", media)
 
   }
 
+  /**
+   * Rebece data e verifica de é menor de idade e mostra no console do navegador
+   * @param dtNascimento 
+   */
   verificaMenorIdade(dtNascimento: Date) {
     let hoje = new Date()
     let idade = hoje.getFullYear() - dtNascimento.getFullYear()
@@ -49,6 +64,10 @@ export class VictorService extends BaseService {
 
   }
 
+  /**
+   * Recebe data e mostra qnts dias faltam para próx aniversário e mostra no console do navegador
+   * @param dtNascimento 
+   */
   proximoAniversario(dtNascimento: Date) {
     let hoje = new Date()
     let proxNiver = new Date(hoje.getFullYear(), dtNascimento.getMonth(), dtNascimento.getDate())
@@ -65,6 +84,10 @@ export class VictorService extends BaseService {
 
   }
 
+  /**
+   * Recebe data e faz verificação de votos e mostra no console do navegador
+   * @param dtNascimento 
+   */
   verificacaoEleitoral(dtNascimento: Date) {
     let hoje = new Date()
     let idade = hoje.getFullYear() - dtNascimento.getFullYear()
@@ -85,6 +108,12 @@ export class VictorService extends BaseService {
     }
   }
 
+  /**
+   * Recebe valor e moeda e faz a conversão para outras moedas e apresenta no console do navegador
+   * @param valor 
+   * @param moeda 
+   * @returns 
+   */
   converterMoedaIf(valor: number, moeda: string) {
     let resultadoReal = 0
 
