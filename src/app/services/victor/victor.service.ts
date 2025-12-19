@@ -133,12 +133,20 @@ export class VictorService extends BaseService {
     }
     console.log(`conversão em R$ ${resultadoReal}`);
     return resultadoReal
-
+    /**
+     * Função que busca Api e retorna valor da moeda em tempo real e mostra na função convercaoMoedaSwitch.
+     * @returns
+     */
   }
   apiCotacao(): Observable<any> {
     return this.http.get("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL,GBP-BRL,JPY-BRL,ARS-BRL")
   }
 
+  /**
+   * Recebe valor e moeda e converte a moeda no valor em real e mostra no console do navegador.
+   * @param valor 
+   * @param moeda 
+   */
   convercaoMoedaSwitch(valor: number, moeda: string) {
     let resultadoReal = 0
     this.apiCotacao().subscribe(response => {
@@ -176,6 +184,11 @@ export class VictorService extends BaseService {
 
   }
 
+  /**
+   * Recebe dois números e mostra a soma no console do navegador.
+   * @param N1 
+   * @param N2 
+   */
   somarNumero(N1: number, N2: number) {
     let resultado = N1 + N2
     console.log("O resultado da soma é", resultado);
@@ -193,6 +206,7 @@ export class VictorService extends BaseService {
       const produtoAtual = listaProdutos[index];
 
       if (produtoAtual.valor > maior.valor) {
+
         maior = produtoAtual
       }
       if (produtoAtual.valor < menor.valor) {
@@ -223,9 +237,6 @@ export class VictorService extends BaseService {
     console.log(signoAtual);
   }
 
-
-
-
   alunos: alunos[] = [
     { id: 1, nome: 'joão', nota: 5.5 },
     { id: 2, nome: 'maria', nota: 6 },
@@ -234,6 +245,9 @@ export class VictorService extends BaseService {
     { id: 5, nome: 'isis', nota: 8 }
   ]
 
+  /**
+   * Verifica lista de alunos e retorna nota maiores que 6 e mostra no console do navegador.
+   */
   alunosAprovado() {
     let alunosAprovado =
       this.alunos.filter(a => a.nota >= 6);
@@ -243,8 +257,9 @@ export class VictorService extends BaseService {
 
   }
 
-
-
+  /**
+   * verifica lista de produtos e retorna o maior e menor produto e mostra no console do navegador.
+   */
   listagemProduto() {
 
     let maior = listaProdutos[0]
@@ -267,48 +282,35 @@ export class VictorService extends BaseService {
 
   }
 
-
+  /**
+   * Api que busca uma lista no mockoon e usada na função signosApi.
+   * @returns 
+   */
   signoApi(): Observable<any> {
     return this.http.get("http://localhost:3000/signo")
   }
 
+  /**
+   * recebe data e verifica qual signo corresponde com a data e mostra no console do navegador.
+   * @param dtNascimento 
+   */
   signosApi(dtNascimento: Date) {
     let diaNascimento = dtNascimento.getDate();
     let mesNascimento = dtNascimento.getMonth() + 1;
-    let signoAtual
-    this.signoApi().subscribe(response => {
-      if ((mesNascimento === response.inicio.mes && diaNascimento >= response.inicio.dia) || (mesNascimento === response.fim.mes && diaNascimento <= response.fim.dia)) {
-        signoAtual = response;
-      }
+    
+    this.signoApi().subscribe(signos => {
+      const signo = signos.find((s : any) => (mesNascimento === s.dtIn.mes && diaNascimento >= s.dtIn.dia) ||
+      (mesNascimento === s.dtF.mes && diaNascimento <= s.dtF.dia))
+      
+      console.log("Signo:", signo.nome)
     })
-    console.log(signoAtual);
+    
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  /**
+   * recebe data e verifica se e menor de idade e mostra no console do navegador.
+   * @param dtNascimento 
+   */
   verificacaoIdade(dtNascimento: Date) {
     let hoje = new Date()
     let idade = hoje.getFullYear() - dtNascimento.getFullYear()
